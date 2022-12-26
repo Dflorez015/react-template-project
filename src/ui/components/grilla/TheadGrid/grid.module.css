@@ -1,0 +1,196 @@
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.grid__thead {
+    position: sticky;
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+.grid__thead thead,
+tr {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 4;
+}
+
+.grid__thead th {
+    position: relative;
+    animation: appear 1.5s ease;
+    white-space: nowrap;
+    padding: 0.5rem 1.2rem;
+}
+
+.grid__thead th[data-action="true"] {
+    min-width: 80px;
+    width: 80px;
+}
+
+.grid__thead th[data-action="false"] {
+    min-width: 100px;
+}
+
+.thead__content {
+    width: fit-content;
+    white-space: nowrap;
+    font-size: clamp(12px, 2vw, 14px);
+    display: flex;
+    align-content: center;
+    text-align: left;
+    position: relative;
+    gap: 0.5rem;
+}
+
+.grid__thead th:last-child>div>div {
+    left: 0 !important;
+    transform: translate(-50%, 18px);
+}
+
+.thead__actions {
+    height: fit-content;
+    min-width: 160px;
+    max-height: 250px;
+    padding-block: 8px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: absolute;
+    z-index: 5;
+    transform: translateY(18px);
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 12%), 0 1px 6px rgb(0 0 0 / 24%);
+}
+
+.grid__svg__action__button {
+    border: 1px solid black;
+    height: 1rem;
+    width: 1rem;
+    transition: box-shadow .2s ease;
+    cursor: pointer;
+}
+
+.grid__svg__action__button:hover,
+[data-active="true"] {
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+    -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+    box-shadow: inset 0px 0px 5px #c1c1c1;
+}
+
+/* Actions css ----------------------------------------------------------------*/
+
+.actions__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.actions__wrapper>label {
+    padding-inline: 5px;
+    font-size: clamp(14px, 1vw, 16px);
+    font-weight: bolder;
+}
+
+/* div actions elements (sort) css ----------------------------------------------------------------*/
+
+.row__actions__wrapper {
+    cursor: pointer;
+    position: relative;
+    padding: 5px 8px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 200;
+    transition: background-color .2s ease-in-out;
+}
+
+.row__actions__wrapper:hover {
+    background-color: #e8e8ea7f;
+}
+
+.row__actions__wrapper[data-active="true"] {
+    background-color: #e8e8ea7f;
+}
+
+.row__actions__wrapper[data-active="true"]:hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: white;
+    width: 6px;
+    height: 2px;
+    right: 8px;
+    top: 14px;
+}
+
+.row__actions__wrapper[data-active="true"]:hover {
+    background-color: crimson;
+    color: white;
+}
+
+/* div actions wrappers (filters) css ----------------------------------------------------------------*/
+
+.form__filter__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-inline: 10px;
+    padding-bottom: 10px;
+}
+
+.row__inputs__wrapper {    
+    position: relative;
+    width: 100%;
+    padding-inline: 10px;
+    margin-bottom: 8px;
+}
+
+.row__inputs__wrapper > input[type="text"] {
+    padding-right: 15px;
+}
+
+.left__icon__position {
+    position: absolute;
+    right: 12px;
+    top: 2px;
+}
+
+.delete__icon {
+    height: 1rem;
+    width: 1rem;
+    cursor: pointer;
+    transition: background-color .2s ease-out;
+    border-radius: 50%;
+    padding: 1px;
+}
+
+.delete__icon:hover {
+    color: white;
+    background-color: crimson;    
+}
+
+.loading__icon {    
+    height: 1rem;
+    width: 1rem;
+    animation: rotate 1s linear infinite;
+}
