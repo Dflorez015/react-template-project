@@ -1,7 +1,7 @@
 import { createContext, CSSProperties } from "react";
 
-export type signalType = "=" | "contain" | "equal" | "<" | ">" | "<>" | ">=" | "<="
-export type filterTextType = "text" | "number" | "date"
+export type signalType = "=" | "contains" | "equal" | "<" | ">" | "<>" | ">=" | "<="
+export type filterTextType = "text" | "number" | "date" | "boolean"
 
 export interface IFilter {
     signal: signalType
@@ -16,7 +16,9 @@ export interface ITheadGrid {
     param: string;
     style?: CSSProperties
     isAction?: boolean;
+    isSearch?: boolean;
     canSort?: boolean;
+    hiddeColumn?: boolean;
     filter?: IFilter;
 }
 

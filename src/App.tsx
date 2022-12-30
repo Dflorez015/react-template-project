@@ -12,6 +12,7 @@ const ejemplo: ITheadGrid[] = [
     label: "Descripción",
     param: "description",
     style: { minWidth: "1271px" },
+    isSearch: true
   },
   { label: "Total titulares", param: "rues_total_titulares", filter: { signal: "=", type: "text", param: "rues_total_titulares" } },
   {
@@ -21,6 +22,7 @@ const ejemplo: ITheadGrid[] = [
   {
     label: "Titulares encontrados",
     param: "rues_total_titulares_encontrados",
+    isSearch: true
   },
   {
     label: "Titulares no encontrados",
@@ -35,7 +37,7 @@ const ejemplo: ITheadGrid[] = [
   {
     label: "Titulares solo teléfono",
     param: "rues_total_titulares_solo_telefono",
-    filter: { param: "rues_total_titulares_solo_telefono", groupSignal: "and", type: "number", signal: "contain" }
+    filter: { param: "rues_total_titulares_solo_telefono", groupSignal: "and", type: "number", signal: "contains" }
   },
   {
     label: "Progreso", param: "",
@@ -43,17 +45,26 @@ const ejemplo: ITheadGrid[] = [
   },
   {
     label: "Fech. creación", param: "createAt", canSort: true,
-    filter: { param: "rues_total_titulares_solo_telefono", groupSignal: "and", type: "date", signal: "contain" }
+    filter: { param: "createAt", groupSignal: "and", type: "date", signal: "contains" }
   },
 ]
 
 function App() {
 
   return (
-    <div style={{ display: "flex", width: "100vw", height: "100vh", flexDirection: "column", overflowX: "auto" }}>
-      <Grilla thead={[...ejemplo]} url="yyyyyy" children={<tbody />} />
-      {/* <Grilla thead={[{ label: "bbb", param: "bbbb" }]} url="zzzzzz" children={<tbody />} /> */}
-    </div>
+    <>
+      <div style={{ display: "flex", width: "100vw", height: "100vh", flexDirection: "column", overflowX: "auto" }}>
+        <Grilla thead={[...ejemplo]} url="yyyyyy" children={<tbody />} />
+      </div>
+
+      <div style={{ display: "flex", width: "100vw", height: "100vh", flexDirection: "column", overflowX: "auto" }}>
+        <Grilla thead={[{
+          label: "Acciones",
+          param: "",
+          isAction: true,
+        }, { label: "bbb", param: "bbbb", canSort: true }, { label: "sdddss", param: "ss" }]} url="zzzzzz" children={<tbody />} />
+      </div>
+    </>
   )
 }
 

@@ -9,42 +9,44 @@
 }
 
 @keyframes rotate {
-    from{
+    from {
         transform: rotate(0deg);
     }
-    to{
+
+    to {
         transform: rotate(360deg);
     }
 }
 
-.grid__thead {
-    position: sticky;
+.grid__style {
+    /* position: sticky; */
     width: 100%;
     background-color: white;
     border-collapse: collapse;
 }
 
-.grid__thead thead,
-tr {
+.grid__style thead,
+.grid__style tr {
     background-color: white;
     position: sticky;
     top: 0;
     z-index: 4;
+    border-bottom: 1px solid black;
 }
 
-.grid__thead th {
+.grid__style th {
     position: relative;
     animation: appear 1.5s ease;
     white-space: nowrap;
     padding: 0.5rem 1.2rem;
 }
 
-.grid__thead th[data-action="true"] {
+.grid__style th[data-action="true"] {
     min-width: 80px;
     width: 80px;
 }
 
-.grid__thead th[data-action="false"] {
+.grid__style th[data-action="false"] {
     min-width: 100px;
 }
 
@@ -59,12 +61,13 @@ tr {
     gap: 0.5rem;
 }
 
-.grid__thead th:last-child>div>div {
+.grid__style th:last-child>div>div {
     left: 0 !important;
     transform: translate(-50%, 18px);
 }
 
 .thead__actions {
+    background-color: white;
     height: fit-content;
     min-width: 160px;
     max-height: 250px;
@@ -89,11 +92,15 @@ tr {
     cursor: pointer;
 }
 
-.grid__svg__action__button:hover,
-[data-active="true"] {
+.grid__svg__action__button:hover {
     -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
     -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
     box-shadow: inset 0px 0px 5px #c1c1c1;
+}
+
+.grid__svg__action__button[data-active="true"] {
+    background-color: #e7e5e5;
+    fill: #424242;
 }
 
 /* Actions css ----------------------------------------------------------------*/
@@ -158,14 +165,13 @@ tr {
     padding-bottom: 10px;
 }
 
-.row__inputs__wrapper {    
+.row__inputs__wrapper {
     position: relative;
     width: 100%;
     padding-inline: 10px;
-    margin-bottom: 8px;
 }
 
-.row__inputs__wrapper > input[type="text"] {
+.row__inputs__wrapper>input[type="text"] {
     padding-right: 15px;
 }
 
@@ -186,11 +192,29 @@ tr {
 
 .delete__icon:hover {
     color: white;
-    background-color: crimson;    
+    background-color: crimson;
 }
 
-.loading__icon {    
+.loading__icon {
     height: 1rem;
     width: 1rem;
     animation: rotate 1s linear infinite;
+}
+
+/* search input css ----------------------------------------------------------------*/
+
+.search__input__wrapper {
+    position: relative;
+    width: 500px;
+    padding-inline: 10px;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search__input__wrapper input[type="text"] {
+    width: 100%;
+}
+
+.search__input__wrapper label {
+    white-space: nowrap;
 }

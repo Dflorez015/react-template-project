@@ -1,4 +1,4 @@
-import { IFilter, IGridContext } from "./gridContext";
+import { IGridContext } from "./gridContext";
 
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const CHANGE_LIMIT = "CHANGE_LIMIT";

@@ -53,11 +53,11 @@ export const useHandleGridContext = (currentState: IContextState) => {
 
     const intervalSetFilter = (newFilters: IFilter[]) => {
         const filt = state.pagination?.filt as IFilter[] | undefined
-        const currentParam = newFilters[0].param
+        const currentParam = newFilters.map((filt) => filt.param)
         const cleanNewFilter = newFilters.filter((filt) => Boolean(filt.value))
 
         if (filt) {
-            let currentFilt = [...filt].filter((filt) => filt.param !== currentParam)
+            let currentFilt = [...filt].filter((filt) => !currentParam.includes(filt.param))
             currentFilt = [...currentFilt, ...cleanNewFilter]
             dispatch({ type: "SET_FILTER", payload: currentFilt.length > 0 ? currentFilt : undefined })
             return
