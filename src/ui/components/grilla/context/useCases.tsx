@@ -67,5 +67,7 @@ export const useHandleGridContext = (currentState: IContextState) => {
         return
     }
 
-    return { state, changePage, changeLimit, showFilterColumn, sortByParam, simpleSetFilter, intervalSetFilter }
+    const changeAsideColumnValue = () => dispatch({ type: "SET_ASIDE_COLUMN", payload: undefined })
+
+    return { state, changePage, changeLimit, showFilterColumn, sortByParam, simpleSetFilter, changeAsideColumnValue, intervalSetFilter }
 }

@@ -1,10 +1,11 @@
 import { IGridContext } from "./gridContext";
 
-export const CHANGE_PAGE = "CHANGE_PAGE";
-export const CHANGE_LIMIT = "CHANGE_LIMIT";
-export const SET_FILTER_PARAM = "SET_FILTER_PARAM";
-export const SET_SORT = "SET_SORT";
-export const SET_FILTER = "SET_FILTER";
+const CHANGE_PAGE = "CHANGE_PAGE";
+const CHANGE_LIMIT = "CHANGE_LIMIT";
+const SET_FILTER_PARAM = "SET_FILTER_PARAM";
+const SET_SORT = "SET_SORT";
+const SET_FILTER = "SET_FILTER";
+const SET_ASIDE_COLUMN = "SET_ASIDE_COLUMN";
 
 export default (state: IGridContext, action: { payload: any, type: string }) => {
     const { payload, type } = action;
@@ -33,8 +34,14 @@ export default (state: IGridContext, action: { payload: any, type: string }) => 
         case SET_FILTER:
             return {
                 ...state,
-                pagination: { ...state.pagination, filt: payload},
+                pagination: { ...state.pagination, filt: payload },
             };
+
+        case SET_ASIDE_COLUMN:
+            return {
+                ...state,
+                showAsideColumnHandler: !Boolean(state.showAsideColumnHandler),                
+            }
 
         default:
             return state;

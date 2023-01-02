@@ -1,5 +1,7 @@
 import { createContext, CSSProperties } from "react";
 
+// json config object ----------------------------------------------------------------
+
 export type signalType = "=" | "contains" | "equal" | "<" | ">" | "<>" | ">=" | "<="
 export type filterTextType = "text" | "number" | "date" | "boolean"
 
@@ -22,6 +24,8 @@ export interface ITheadGrid {
     filter?: IFilter;
 }
 
+// grid props ----------------------------------------------------------------
+
 export interface IContextState {
     url: string
     thead: ITheadGrid[]
@@ -29,7 +33,10 @@ export interface IContextState {
 
 export interface IGrid extends IContextState {
     children: JSX.Element
+    withoutTopActions?: boolean
 }
+
+// context state   ----------------------------------------------------------------
 
 export interface ISortType {
     desc: boolean
@@ -50,12 +57,14 @@ export interface IGridContext extends IContextState {
     paramActionsActive?: string
     pagination?: Ipagination
     currentFilterColumnOpen?: string
+    showAsideColumnHandler?: boolean
     changeLimit?: (num: number) => void
     changePage?: (num: number) => void
     sortByParam?: (param: string, desc: boolean) => void
     showFilterColumn?: (param: string) => void
     simpleSetFilter?: (param: string, signal: signalType, type: filterTextType, value?: string | number) => void
     intervalSetFilter?: (newFilters: IFilter[]) => void
+    changeAsideColumnValue?: () => void
 }
 
 export const GridContext = createContext<IGridContext>({ url: "", thead: [] });

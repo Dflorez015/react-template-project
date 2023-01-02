@@ -1,9 +1,9 @@
-import { IFilter } from "@components/grilla/context"
 import { useHandleTextInputWithTimer, useSearchInput } from "@components/grilla/hooks"
+import { useHandleShowColumn } from "@components/grilla/hooks/handleTopActions"
 import { LoadingIcon, DeleteFilterText } from "@components/grilla/widgets/Icon"
 import styles from "../grid.module.css"
 
-export const SearchByInGrid = () => {
+export const QuickSearchGrid = () => {
     const { placheHolderInput, currentValue, handleSearchInput } = useSearchInput()
 
     const { handleInput, loading, removeSearchInput, searchValue } = useHandleTextInputWithTimer(handleSearchInput, currentValue)
@@ -20,4 +20,23 @@ export const SearchByInGrid = () => {
             </div>
         </>
     )
+}
+
+export const HandleColumnsVisibility = () => {
+    const { button, showAsideColumnHandler } = useHandleShowColumn()
+
+    return (
+        <>
+            {button}
+            {showAsideColumnHandler && (
+                <div className={styles.aside__column}>
+                    aaaaaaaaaa
+
+                </div>
+            )
+            }
+
+        </>
+    )
+
 }

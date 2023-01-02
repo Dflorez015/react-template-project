@@ -203,6 +203,12 @@
 
 /* search input css ----------------------------------------------------------------*/
 
+.top__actions__wrapper {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
 .search__input__wrapper {
     position: relative;
     width: 500px;
@@ -213,8 +219,29 @@
 
 .search__input__wrapper input[type="text"] {
     width: 100%;
+    padding-inline: 1.4rem 1.2rem;
+    padding-block: 3px;
+    background: white url(/search.png) left/15px no-repeat;
+    background-position: 3px;
 }
 
 .search__input__wrapper label {
     white-space: nowrap;
+}
+
+/* top buttons css --------------------------------------------------------------------*/
+
+.top__button__action {
+    padding: 0.2rem 0.6rem;
+}
+
+.aside__column {
+    position: fixed;
+    padding: 0.4rem;
+    top: 0;
+    right: 0;
+    width: 300px;
+    background-color: white;
+    height: 100%;
+    z-index: 6;
 }

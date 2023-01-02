@@ -6,7 +6,7 @@ export const useSearchInput = () => {
     const { thead, pagination, intervalSetFilter } = useContext(GridContext)
 
     const columnsWithSearch = useMemo(() => {
-        return thead.filter(column => column.isSearch)
+        return thead.filter(column => (column.isSearch && !column.hiddeColumn))
     }, [thead])
 
     const placheHolderInput = useMemo(() => {

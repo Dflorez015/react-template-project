@@ -62,7 +62,7 @@ function App() {
           label: "Acciones",
           param: "",
           isAction: true,
-        }, { label: "bbb", param: "bbbb", canSort: true }, { label: "sdddss", param: "ss" }]} url="zzzzzz" children={<tbody />} />
+        }, { label: "bbb", param: "bbbb", canSort: true }, { label: "sdddss", param: "ss" }]} url="zzzzzz" children={<tbody />} withoutTopActions />
       </div>
     </>
   )
