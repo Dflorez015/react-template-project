@@ -53,16 +53,22 @@ function App() {
 
   return (
     <>
-      <div style={{ display: "flex", width: "100vw", height: "100vh", flexDirection: "column", overflowX: "auto" }}>
-        <Grilla thead={[...ejemplo]} url="yyyyyy" children={<tbody />} />
-      </div>
-
-      <div style={{ display: "flex", width: "100vw", height: "100vh", flexDirection: "column", overflowX: "auto" }}>
-        <Grilla thead={[{
-          label: "Acciones",
-          param: "",
-          isAction: true,
-        }, { label: "bbb", param: "bbbb", canSort: true }, { label: "sdddss", param: "ss" }]} url="zzzzzz" children={<tbody />} withoutTopActions />
+      <div style={{ display: "flex", width: "100vw", height: "100vh", flexDirection: "column", overflowX: "auto", gap: "1.2rem" }}>
+        <Grilla thead={[...ejemplo]} url="yyyyyy" children={
+          <tbody >
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+            <tr><td>adasdsd</td></tr>
+          </tbody>
+        } />
       </div>
     </>
   )

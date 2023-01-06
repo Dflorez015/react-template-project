@@ -65,6 +65,7 @@ export interface IGridContext extends IContextState {
     simpleSetFilter?: (param: string, signal: signalType, type: filterTextType, value?: string | number) => void
     intervalSetFilter?: (newFilters: IFilter[]) => void
     changeAsideColumnValue?: () => void
+    setTheadHiddenValue?: (column: ITheadGrid, value: boolean) => void
 }
 
 export const GridContext = createContext<IGridContext>({ url: "", thead: [] });

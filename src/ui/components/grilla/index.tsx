@@ -4,10 +4,14 @@ import { HandleColumnsVisibility, QuickSearchGrid } from "./TheadGrid/actions";
 import styles from './TheadGrid/grid.module.css';
 
 export const Grilla = ({ url, thead, children, withoutTopActions }: IGrid) => {
-    const { state, changeLimit, changePage, showFilterColumn, sortByParam, simpleSetFilter, changeAsideColumnValue, intervalSetFilter } = useHandleGridContext({ url, thead })
+    const { state, changeLimit, changePage, showFilterColumn, sortByParam,
+        simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue } = useHandleGridContext({ url, thead })
 
     return (
-        <GridContext.Provider value={{ ...state, sortByParam, changeLimit, changePage, showFilterColumn, simpleSetFilter, changeAsideColumnValue, intervalSetFilter }}>
+        <GridContext.Provider value={{
+            ...state, sortByParam, changeLimit, changePage, showFilterColumn,
+            simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue
+        }}>
 
             {
                 !withoutTopActions ? (
@@ -15,12 +19,15 @@ export const Grilla = ({ url, thead, children, withoutTopActions }: IGrid) => {
                         <QuickSearchGrid /> {/* search input*/}
                         <HandleColumnsVisibility />
                     </div>
-                ) : null}
+                ) : null
+            }
 
-            <table className={styles.grid__style}>
-                <GridThead />
-                {children}
-            </table>
+            <div className={styles.grid__wrapper__style}>
+                <table className={styles.grid__style}>
+                    <GridThead />
+                    {children}
+                </table>
+            </div>
 
         </GridContext.Provider>
     )

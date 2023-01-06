@@ -1,5 +1,5 @@
 import { useReducer } from "react"
-import { filterTextType, IContextState, IFilter, IGridContext, ISortType, signalType } from "./gridContext"
+import { filterTextType, IContextState, IFilter, IGridContext, ISortType, ITheadGrid, signalType } from "./gridContext"
 import UseGridReducer from "./useReducer"
 
 export const useHandleGridContext = (currentState: IContextState) => {
@@ -22,6 +22,14 @@ export const useHandleGridContext = (currentState: IContextState) => {
         }
         dispatch({ type: "SET_FILTER_PARAM", payload: columnParam })
         return
+    }
+
+    const setTheadHiddenValue = (column: ITheadGrid, value: boolean) => {
+        let currentThead = [...state.thead]
+        let indexColumn = currentThead.findIndex((th) => th.param === column.param)
+
+        currentThead[indexColumn] = { ...column, hiddeColumn: value }
+        dispatch({ type: "SET_THEAD", payload: currentThead })
     }
 
     const sortByParam = (param: string, desc: boolean) => {
@@ -69,5 +77,5 @@ export const useHandleGridContext = (currentState: IContextState) => {
 
     const changeAsideColumnValue = () => dispatch({ type: "SET_ASIDE_COLUMN", payload: undefined })
 
-    return { state, changePage, changeLimit, showFilterColumn, sortByParam, simpleSetFilter, changeAsideColumnValue, intervalSetFilter }
+    return { state, changePage, changeLimit, showFilterColumn, sortByParam, simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue }
 }

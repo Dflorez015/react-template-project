@@ -11,7 +11,9 @@ const GridThead = () => {
         <thead>
             <tr>
                 {thead.map((th, index) => (
-                    <ThContent key={index} currentTh={th} />
+                    !th.hiddeColumn && (
+                        <ThContent key={index} currentTh={th} />
+                    )
                 ))}
             </tr>
         </thead>
@@ -27,6 +29,7 @@ const ThContent = ({ currentTh }: { currentTh: ITheadGrid }) => {
     return (
         <th style={currentTh.style} data-action={Boolean(currentTh.isAction)} >
             <div className={styles.thead__content} ref={ref}>
+
                 {currentTh.label}
 
                 {!Boolean(currentTh.isAction) && (Boolean(currentTh.filter) || currentTh.canSort) && (

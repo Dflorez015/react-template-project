@@ -6,6 +6,7 @@ const SET_FILTER_PARAM = "SET_FILTER_PARAM";
 const SET_SORT = "SET_SORT";
 const SET_FILTER = "SET_FILTER";
 const SET_ASIDE_COLUMN = "SET_ASIDE_COLUMN";
+const SET_THEAD = "SET_THEAD";
 
 export default (state: IGridContext, action: { payload: any, type: string }) => {
     const { payload, type } = action;
@@ -40,7 +41,12 @@ export default (state: IGridContext, action: { payload: any, type: string }) => 
         case SET_ASIDE_COLUMN:
             return {
                 ...state,
-                showAsideColumnHandler: !Boolean(state.showAsideColumnHandler),                
+                showAsideColumnHandler: !Boolean(state.showAsideColumnHandler),
+            }
+        case SET_THEAD:
+            return {
+                ...state,
+                thead: payload
             }
 
         default:

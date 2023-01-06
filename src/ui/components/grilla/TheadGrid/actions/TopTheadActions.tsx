@@ -1,6 +1,6 @@
 import { useHandleTextInputWithTimer, useSearchInput } from "@components/grilla/hooks"
 import { useHandleShowColumn } from "@components/grilla/hooks/handleTopActions"
-import { LoadingIcon, DeleteFilterText } from "@components/grilla/widgets/Icon"
+import { LoadingIcon, DeleteFilterText, ColumnsIcon } from "@components/grilla/utils/Icon"
 import styles from "../grid.module.css"
 
 export const QuickSearchGrid = () => {
@@ -23,17 +23,41 @@ export const QuickSearchGrid = () => {
 }
 
 export const HandleColumnsVisibility = () => {
-    const { button, showAsideColumnHandler } = useHandleShowColumn()
+    const { button, showAsideColumnHandler, arrow, thead, changeInput } = useHandleShowColumn()
 
     return (
         <>
             {button}
-            {showAsideColumnHandler && (
-                <div className={styles.aside__column}>
-                    aaaaaaaaaa
 
+            {showAsideColumnHandler ? (
+                <div className={styles.aside__column}>
+                    <div className={styles.aside__column__header}>
+                        <div>
+                            <ColumnsIcon />
+                            Columnas
+                        </div>
+
+                        {arrow}
+                    </div>
+
+                    <div className={styles.aside__column__content}>
+                        <p>Mostrar columna</p>
+
+                        <ul className={styles.aside__list__columns}>
+
+                            {thead.map((column, index) => (
+                                Boolean(column.param) && (
+                                    <div key={index}>
+                                        <input type="checkbox" id={column.param} name={`${index}`} checked={!column.hiddeColumn} onChange={changeInput} />
+                                        <label htmlFor={column.param}>{column.label}</label>
+                                    </div>
+                                )
+                            ))}
+                        </ul>
+
+                    </div>
                 </div>
-            )
+            ) : null
             }
 
         </>
