@@ -34,6 +34,7 @@ export interface IContextState {
 export interface IGrid extends IContextState {
     children: JSX.Element
     withoutTopActions?: boolean
+    gridOptions?: JSX.Element
 }
 
 // context state   ----------------------------------------------------------------

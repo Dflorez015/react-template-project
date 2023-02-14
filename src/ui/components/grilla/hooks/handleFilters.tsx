@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { IFilter } from "../context"
-import { useGetIntervalFilterByParam } from "./paginationSelector"
+import { useGetIntervalFilterByParam } from "./usePaginationSelector"
 
 export type SubmitForm = React.FormEvent<HTMLFormElement>
 export const useHandleIntervalFilter = (filter: IFilter) => {

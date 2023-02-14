@@ -21,16 +21,42 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
+      "@domain/*": [
+        "./domain/*"
+      ],
+      "@ui/*": [
+        "./ui/*"
+      ],
+      "@api/*": [
+        "./domain/api/*"
+      ],
       "@services/*": [
         "./domain/services/*"
       ],
-      "@domain/*": [
-        "./domain/*"
+      "@store/*": [
+        "./domain/store/*"
+      ],
+      "@entities/*": [
+        "./domain/entities/*"
       ],
       "@components/*": [
         "./ui/components/*"
       ],
-
+      "@grilla/*": [
+        "./ui/components/grilla/*"
+      ],
+      "@hooks/*": [
+        "./ui/hooks/*"
+      ],
+      "@pages/*": [
+        "./ui/pages/*"
+      ],
+      "@types/*": [
+        "./ui/ts/*"
+      ],
+      "@utils/*": [
+        "./ui/utils/*"
+      ],
     }
   },
   "include": [

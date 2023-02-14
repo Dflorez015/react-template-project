@@ -44,7 +44,6 @@ export const HandleColumnsVisibility = () => {
                         <p>Mostrar columna</p>
 
                         <ul className={styles.aside__list__columns}>
-
                             {thead.map((column, index) => (
                                 Boolean(column.param) && (
                                     <div key={index}>
@@ -54,7 +53,6 @@ export const HandleColumnsVisibility = () => {
                                 )
                             ))}
                         </ul>
-
                     </div>
                 </div>
             ) : null
@@ -62,5 +60,4 @@ export const HandleColumnsVisibility = () => {
 
         </>
     )
-
 }

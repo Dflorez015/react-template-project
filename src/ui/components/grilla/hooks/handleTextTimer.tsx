@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { IFilter } from "../context"
-import { useGetIntervalFilterByParam } from "./paginationSelector"
 
 export type HandleInput = React.ChangeEvent<HTMLInputElement>
 export const useHandleTextInputWithTimer = (handle: (value?: string) => void, queryValue?: string | number) => {

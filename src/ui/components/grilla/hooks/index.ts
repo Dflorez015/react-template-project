@@ -1,4 +1,5 @@
 export * from './handleTextTimer';
-export * from './paginationSelector';
-export * from './searchByColumn';
+export * from './usePaginationSelector';
+export * from './useSearchByColumn';
 export * from './handleFilters';
+export * from './useGridInfo';

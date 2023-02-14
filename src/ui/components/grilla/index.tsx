@@ -3,7 +3,7 @@ import GridThead from "./TheadGrid"
 import { HandleColumnsVisibility, QuickSearchGrid } from "./TheadGrid/actions";
 import styles from './TheadGrid/grid.module.css';
 
-export const Grilla = ({ url, thead, children, withoutTopActions }: IGrid) => {
+export const Grilla = ({ url, thead, children, withoutTopActions, gridOptions }: IGrid) => {
     const { state, changeLimit, changePage, showFilterColumn, sortByParam,
         simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue } = useHandleGridContext({ url, thead })
 
@@ -18,6 +18,7 @@ export const Grilla = ({ url, thead, children, withoutTopActions }: IGrid) => {
                     <div className={styles.top__actions__wrapper}>
                         <QuickSearchGrid /> {/* search input*/}
                         <HandleColumnsVisibility />
+                        {gridOptions && <>aa</>}
                     </div>
                 ) : null
             }
