@@ -1,7 +1,8 @@
 import { GridContext, IGrid, useHandleGridContext } from "./context"
 import GridThead from "./TheadGrid"
 import { HandleColumnsVisibility, QuickSearchGrid } from "./TheadGrid/actions";
-import styles from './TheadGrid/grid.module.css';
+import { TopListActions } from "./TheadGrid/actions/TopTheadActions";
+import styles from "./TheadGrid/grid.module.css";
 
 export const Grilla = ({ url, thead, children, withoutTopActions, gridOptions }: IGrid) => {
     const { state, changeLimit, changePage, showFilterColumn, sortByParam,
@@ -18,7 +19,7 @@ export const Grilla = ({ url, thead, children, withoutTopActions, gridOptions }:
                     <div className={styles.top__actions__wrapper}>
                         <QuickSearchGrid /> {/* search input*/}
                         <HandleColumnsVisibility />
-                        {gridOptions && <>aa</>}
+                        {gridOptions && <TopListActions />}
                     </div>
                 ) : null
             }

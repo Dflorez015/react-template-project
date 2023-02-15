@@ -47,22 +47,26 @@ export const useGetIntervalFilterByParam = (filtParam: string) => {
 
 export const useIsColumnInAction = (columnParam: string) => {
 
-    const { pagination } = useContext(GridContext)
+    const pagination = useContext(GridContext).pagination
 
     const isInAction = useMemo(() => {
 
-        if (columnParam === "") return false
+        let hasAction = false
+
+        if (columnParam === "") return hasAction
 
         if (pagination) {
 
-            if (pagination.sort) return pagination.sort.selector === columnParam
+            if (pagination.sort) {
+                if (pagination.sort.selector === columnParam) return true
+            }
 
             if (pagination.filt) {
-                return pagination.filt.some((filt) => filt.param === columnParam)
+                hasAction = pagination.filt.some((filt) => filt.param === columnParam)
             }
         }
 
-        return false
+        return hasAction
     }, [pagination])
 
     return { isInAction }

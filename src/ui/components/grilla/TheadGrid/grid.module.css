@@ -38,7 +38,7 @@
 .grid__wrapper__style::-webkit-scrollbar-track {
     border-radius: 8px;
     /*--- custome ---*/
-    background: var(--app_bg);
+    background: var(--component_bg);
 }
 
 .grid__wrapper__style::-webkit-scrollbar-thumb {
@@ -53,7 +53,7 @@
 .grid__style {
     /* position: sticky; */
     width: 100%;
-    background-color: var(--app_bg);
+    background-color: var(--component_bg);
     border-collapse: collapse;
 }
 
@@ -65,8 +65,8 @@
     border-bottom: 1px solid;
 
     /*--- custome ---*/
-    background-color: var(--app_bg);
-    border-color: rgba(0, 0, 0, 0.388);
+    background-color: var(--component_bg);
+    border-color: var(--border_shadow_lg);
 }
 
 .grid__style th {
@@ -87,7 +87,7 @@
 
 .grid__style th:last-child>div>div {
     left: 0 !important;
-    transform: translate(-50%, 18px);
+    /* transform: translateX(-34%, 22px) !important; */
 }
 
 .grid__style tbody tr {
@@ -95,7 +95,7 @@
     border-bottom: 1px solid;
 
     /*--- custome ---*/
-    border-color: rgba(0, 0, 0, 0.177);
+    border-color: var(--border_shadow_sm);
 }
 
 .grid__style tbody tr:last-child {
@@ -112,17 +112,37 @@
     gap: 8px;
     position: absolute;
     z-index: 5;
-    transform: translateY(18px);
+    /* transform: translateY(22px); */
     border-radius: 8px;
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: var(--shadow);
+
     /*--- custome ---*/
-    background-color: var(--app_bg);
+    box-shadow: var(--shadow);
+    background-color: var(--component_bg);
 }
 
+.thead__actions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.thead__actions::-webkit-scrollbar-track {
+    background: var(--component_bg);
+    border-radius: 8px;
+}
+
+.thead__actions::-webkit-scrollbar-thumb {
+    background: var(--scroll);
+    border-radius: 8px;
+}
+
+.thead__actions::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll_hover);
+}
+
+
 .grid__svg__action__button {
-    border: 1px solid black;
+    border: 1px solid var(--border_shadow_lg);
     height: 1rem;
     width: 1rem;
     transition: box-shadow .2s ease;
@@ -161,8 +181,12 @@
 
 .actions__wrapper>label {
     padding-inline: 5px;
-    font-size: clamp(14px, 1vw, 16px);
+    font-size: clamp(12px, 1vw, 14px);
     font-weight: bolder;
+}
+
+.actions__wrapper input {
+    padding: 2px 5px;
 }
 
 /* div actions elements (sort) css ----------------------------------------------------------------*/
@@ -196,7 +220,7 @@
     right: 8px;
     top: 14px;
     /*--- custome color ---*/
-    background-color: var(--app_bg);
+    background-color: var(--component_bg);
 }
 
 .row__actions__wrapper[data-active="true"]:hover {
@@ -214,6 +238,15 @@
     padding-bottom: 10px;
 }
 
+.form__filter__wrapper > button {
+    cursor: pointer;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 4px 10px;
+    border-radius: 11px;
+    border: 1px solid var(--border_shadow_lg);
+}
+
 .row__inputs__wrapper {
     position: relative;
     width: 100%;
@@ -221,7 +254,13 @@
 }
 
 .row__inputs__wrapper>input[type="text"] {
-    padding-right: 15px;
+    padding-inline: 5px 15px;
+    padding-block: 2px;
+    font-size: clamp(10px, 1vw, 14px);
+}
+
+.row__inputs__wrapper svg {
+    top: 4px;
 }
 
 .left__icon__position {
@@ -270,7 +309,7 @@
     /*--- custome ---*/
     border-radius: 11px;
     box-shadow: var(--shadow);
-    background-color: var(--app_bg);
+    background-color: var(--component_bg);
 }
 
 .search__input__wrapper svg {
@@ -282,7 +321,7 @@
     width: 100%;
     padding-inline: 2.5rem 1.2rem;
     padding-block: 3px;
-    background: var(--app_bg) url(/search.png) left/20px no-repeat;
+    background: var(--component_bg) url(/search.png) left/20px no-repeat;
     background-position: 9px;
     outline: none;
     border-radius: 5px;
@@ -308,7 +347,7 @@
     /*--- custome ---*/
     border-radius: 8px;
     box-shadow: var(--shadow);
-    background-color: var(--app_bg);
+    background-color: var(--component_bg);
 }
 
 .top__button__action:hover {
@@ -322,7 +361,7 @@
 }
 
 .aside__column {
-    width: 300px;
+    /* width: 300px; */
     height: 100%;
     padding: 1rem;
     position: absolute;
@@ -333,8 +372,11 @@
     flex-direction: column;
 
     /*--- custome ---*/
-    background-color: var(--app_bg);
+    background-color: var(--component_bg);
     box-shadow: var(--shadow);
+
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 .aside__column__header {
@@ -366,6 +408,7 @@
     flex-direction: column;
     height: 100%;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .aside__column__content>p {
@@ -381,6 +424,7 @@
     flex-direction: column;
     gap: 0.4rem;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .aside__list__columns::-webkit-scrollbar {
@@ -388,7 +432,7 @@
 }
 
 .aside__list__columns::-webkit-scrollbar-track {
-    background: var(--app_bg);
+    background: var(--component_bg);
     border-radius: 8px;
 }
 

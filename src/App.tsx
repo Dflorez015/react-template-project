@@ -72,7 +72,7 @@ function App() {
   return (
     <>
       <div style={{ display: "flex", width: "100vw", height: "60vh", flexDirection: "column", overflowX: "auto", gap: "1.2rem" }}>
-        <Grilla thead={[...ejemplo]} url="yyyyyy" children={
+        <Grilla thead={[...ejemplo]} url="yyyyyy" gridOptions={<></>} children={
           <tbody >
             <tr><td>dds</td><td><AAA /></td></tr>
             <tr>

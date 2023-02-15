@@ -1,33 +1,40 @@
-import { useContext, useRef } from "react"
+import { AnimatePresence, motion } from "framer-motion";
+import { useContext, useMemo, useRef } from "react"
 import { GridContext, ITheadGrid } from "../context"
 import { useIsColumnInAction } from "../hooks";
 import { FiltersActions, SortActions } from "./actions";
 import styles from './grid.module.css';
 
 const GridThead = () => {
-    const { thead } = useContext(GridContext)
+    const thead = useContext(GridContext).thead
+
+    const lastColumn = useMemo(() => {
+        return thead.filter((columns) => !columns.hiddeColumn).at(-1)!
+    }, [thead])
 
     return (
         <thead>
             <tr>
                 {thead.map((th, index) => (
-                    !th.hiddeColumn && (
-                        <ThContent key={index} currentTh={th} />
-                    )
+                    <AnimatePresence key={index}>
+                        {!th.hiddeColumn && (
+                            <ThContent currentTh={th} isLastChild={lastColumn.param === th.param} />
+                        )}
+                    </AnimatePresence>
                 ))}
             </tr>
         </thead>
     )
 }
 
-const ThContent = ({ currentTh }: { currentTh: ITheadGrid }) => {
+const ThContent = ({ currentTh, isLastChild }: { currentTh: ITheadGrid, isLastChild: boolean }) => {
 
-    const { currentFilterColumnOpen } = useContext(GridContext)
+    const currentFilterColumnOpen = useContext(GridContext).currentFilterColumnOpen
 
     const ref = useRef<HTMLDivElement>(null)
 
     return (
-        <th style={currentTh.style} data-action={Boolean(currentTh.isAction)} >
+        <motion.th style={currentTh.style} data-action={Boolean(currentTh.isAction)} initial={{ opacity: 0 }} exit={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className={styles.thead__content} ref={ref}>
 
                 {currentTh.label}
@@ -36,24 +43,27 @@ const ThContent = ({ currentTh }: { currentTh: ITheadGrid }) => {
                     <>
                         <TheadActionsButton columnParam={currentTh.param} />
 
-                        {(currentFilterColumnOpen === currentTh.param) ? (
-                            <div className={styles.thead__actions} style={{ left: (ref.current!.clientWidth - 55) ?? 0 }}>
-                                <>
-                                    {Boolean(currentTh.canSort) ? <SortActions param={currentTh.param} /> : null}
-                                    {currentTh.filter ? <FiltersActions label={currentTh.label} filter={currentTh.filter} /> : null}
-                                </>
-                            </div>
-                        ) : (null)}
+                        <AnimatePresence>
+                            {(currentFilterColumnOpen === currentTh.param) ? (
+                                <motion.div className={styles.thead__actions} style={{ left: (ref.current!.clientWidth - 55) ?? 0 }}
+                                    initial={{ opacity: 0, y: 0, x: (isLastChild ? "-34%" : 0) }} exit={{ opacity: 0, y: 15, x: (isLastChild ? "-34%" : 0) }} animate={{ opacity: 1, y: 22, x: (isLastChild ? "-34%" : 0) }}>
+                                    <>
+                                        {Boolean(currentTh.canSort) ? <SortActions param={currentTh.param} /> : null}
+                                        {currentTh.filter ? <FiltersActions label={currentTh.label} filter={currentTh.filter} /> : null}
+                                    </>
+                                </motion.div>
+                            ) : (null)}
+                        </AnimatePresence>
                     </>
                 )}
             </div>
-        </th>
+        </motion.th>
     )
 }
 
 const TheadActionsButton = ({ columnParam }: { columnParam: string }) => {
 
-    const { showFilterColumn } = useContext(GridContext)
+    const showFilterColumn = useContext(GridContext).showFilterColumn
     const { isInAction } = useIsColumnInAction(columnParam)
 
     return (
