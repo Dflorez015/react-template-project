@@ -1,0 +1,63 @@
+.nav__menu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--component_bg);
+    box-shadow: var(--shadow);
+}
+
+.nav__menu__closed__wrapper {
+    margin-top: 0.8rem;
+    margin-inline: 1rem;
+    border-radius: 11px;
+    width: 60px;
+    height: fit-content;
+}
+
+.nav__menu__opened__wrapper {
+    width: 300px;
+    height: 100vh;
+}
+
+/*-------------- nav content --------------*/
+
+.nav__menu__header {
+    padding: 0.8rem 0.2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav__menu__header img {
+    cursor: pointer;
+    height: 1.4rem;
+    width: 1.4rem;
+    margin: auto;
+}
+
+.nav__menu__header input[type="text"] {
+    width: 100%;
+    padding: 2px;
+    font-size: clamp(14px, 1vw, 16px);
+}
+
+.nav__menu__content {
+    padding-block: 1.4rem;
+}
+
+/*-------------- nav state changes --------------*/
+
+.nav__menu__header[menu-open="true"] {
+    padding-inline: 1rem;
+    border-bottom: 2px solid var(--border_shadow_lg);
+}
+
+.nav__menu__header[menu-open="true"]>img {
+    transform: rotate(90deg);
+}
+
+.nav__menu__header[menu-open="false"]>img {
+    transform: rotate(-90deg);
+}
+
+.nav__menu__header[menu-open="false"]>input[type="text"] {
+    display: none;
+}

@@ -1,6 +1,7 @@
 import { ITheadGrid } from "@grilla/context"
 import { Grilla } from "@grilla/index"
 import { useGridInfo } from "@grilla/hooks"
+import { NavBarMenu } from "@components/nav"
 
 const ejemplo: ITheadGrid[] = [
   {
@@ -70,8 +71,11 @@ const ejemplo2: ITheadGrid[] = [
 function App() {
 
   return (
-    <>
-      <div style={{ display: "flex", width: "100vw", height: "60vh", flexDirection: "column", overflowX: "auto", gap: "1.2rem" }}>
+    <div style={{ display: "flex", gap: "1.4rem" }}>
+
+      <NavBarMenu />
+
+      <div style={{ display: "flex", width: "100vw", height: "60vh", flexDirection: "column", overflowX: "auto", gap: "1.2rem", padding: "10px" }}>
         <Grilla thead={[...ejemplo]} url="yyyyyy" gridOptions={<></>} children={
           <tbody >
             <tr><td>dds</td><td><AAA /></td></tr>
@@ -91,7 +95,7 @@ function App() {
           </tbody>
         } />
       </div>
-    </>
+    </div>
   )
 }
 
