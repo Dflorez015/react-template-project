@@ -25,8 +25,14 @@ export const useHandleGridContext = (currentState: IContextState) => {
     }
 
     const setTheadHiddenValue = (column: ITheadGrid, value: boolean) => {
-        let currentThead = [...state.thead]
+        let currentThead = [...state.thead] as ITheadGrid[]
         let indexColumn = currentThead.findIndex((th) => th.param === column.param)
+
+        // delete filters from the column hidden
+        if (value) {
+            const filt = state.pagination?.filt as IFilter[] | undefined
+            dispatch({ type: "SET_FILTER", payload: filt?.filter((filter) => filter.param !== column.param) })
+        }
 
         currentThead[indexColumn] = { ...column, hiddeColumn: value }
         dispatch({ type: "SET_THEAD", payload: currentThead })
@@ -35,6 +41,7 @@ export const useHandleGridContext = (currentState: IContextState) => {
     const sortByParam = (param: string, desc: boolean) => {
         const sort = state.pagination?.sort as ISortType | undefined
 
+        // delete sort value if the column has been filtered
         if ((sort) && (sort.selector === param) && (sort.desc === desc)) {
             dispatch({ type: "SET_SORT", payload: undefined })
             return
@@ -48,6 +55,7 @@ export const useHandleGridContext = (currentState: IContextState) => {
         const filt = state.pagination?.filt as IFilter[] | undefined
         const newFilter: IFilter = { param, signal, value, type }
 
+        // delete all the filters with the same param
         if (filt) {
             let currentFilt = [...filt].filter((filt) => filt.param !== param)
             Boolean(value) && currentFilt.push(newFilter)
@@ -64,6 +72,7 @@ export const useHandleGridContext = (currentState: IContextState) => {
         const currentParam = newFilters.map((filt) => filt.param)
         const cleanNewFilter = newFilters.filter((filt) => Boolean(filt.value))
 
+        // delete all the filters with the same param
         if (filt) {
             let currentFilt = [...filt].filter((filt) => !currentParam.includes(filt.param))
             currentFilt = [...currentFilt, ...cleanNewFilter]

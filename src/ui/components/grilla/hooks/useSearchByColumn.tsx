@@ -1,9 +1,9 @@
-import { useContext, useMemo } from "react"
+import { useContext, useEffect, useMemo } from "react"
 import { GridContext, IFilter } from "../context"
 
 export const useSearchInput = () => {
-
     const { thead, pagination, intervalSetFilter } = useContext(GridContext)
+    useRefreshFilterSearch()
 
     const columnsWithSearch = useMemo(() => {
         return thead.filter(column => (column.isSearch && !column.hiddeColumn))
@@ -19,7 +19,6 @@ export const useSearchInput = () => {
     }, [pagination?.filt, columnsWithSearch])
 
     function handleSearchInput(value?: string) {
-
         let currentFilters: IFilter[] = []
 
         for (const column of columnsWithSearch) {
@@ -32,8 +31,31 @@ export const useSearchInput = () => {
     return {
         placheHolderInput,
         currentValue,
-        intervalSetFilter,
         handleSearchInput
     }
+}
 
+/**
+ * refresh search filter when show a column with @type {isSearch?: boolean}
+ */
+const useRefreshFilterSearch = () => {
+    const intervalSetFilter = useContext(GridContext).intervalSetFilter
+    const thead = useContext(GridContext).thead
+    const filt = useContext(GridContext).pagination?.filt
+
+    useEffect(() => {
+        const searchFilt = filt?.filter((filter) => filter.groupSignal === 'or')
+
+        if (searchFilt && searchFilt.length > 0) {
+            const theadForSearch = thead.filter((column) => column.isSearch && !column.hiddeColumn)
+            const currentSearchValue = searchFilt[0].value
+            let currentFilters: IFilter[] = []
+
+            for (const column of theadForSearch) {
+                currentFilters.push({ param: column.param, value: currentSearchValue, signal: "contains", type: "text", groupSignal: "or" })
+            }
+
+            intervalSetFilter!(currentFilters)
+        }
+    }, [thead])
 }

@@ -20,7 +20,7 @@ export const useHandleShowColumn = () => {
     }, [])
 
     const changeInput = (e: IChangeEvent) => {
-        const { checked, id, name } = e.target
+        const { checked, name } = e.target
         setTheadHiddenValue!(thead[+name], !checked)
     }
 

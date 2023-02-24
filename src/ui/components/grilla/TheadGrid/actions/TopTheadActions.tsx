@@ -69,7 +69,7 @@ export const HandleColumnsVisibility = () => {
 
 export const TopListActions = () => {
     return (
-        <MenuList menuButton={<button className={styles.top__button__action}><OptionsIcon />Opciones</button>} transition>
+        <MenuList menuButton={<button className={styles.top__button__action}><OptionsIcon />Opciones</button>}>
             <MenuItem>A</MenuItem>
             <MenuItem>B</MenuItem>
             <MenuItem>C</MenuItem>

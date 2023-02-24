@@ -34,7 +34,8 @@ const ThContent = ({ currentTh, isLastChild }: { currentTh: ITheadGrid, isLastCh
     const ref = useRef<HTMLDivElement>(null)
 
     return (
-        <motion.th style={currentTh.style} data-action={Boolean(currentTh.isAction)} initial={{ opacity: 0 }} exit={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.th style={currentTh.style} data-action={Boolean(currentTh.isAction)}
+            initial={{ opacity: 0 }} exit={{ opacity: 0, maxWidth: 0 }} animate={{ opacity: 1, maxWidth: "100%" }}>
             <div className={styles.thead__content} ref={ref}>
 
                 {currentTh.label}
@@ -45,13 +46,17 @@ const ThContent = ({ currentTh, isLastChild }: { currentTh: ITheadGrid, isLastCh
 
                         <AnimatePresence>
                             {(currentFilterColumnOpen === currentTh.param) ? (
-                                <motion.div className={styles.thead__actions} style={{ left: (ref.current!.clientWidth - 55) ?? 0 }}
-                                    initial={{ opacity: 0, y: 0, x: (isLastChild ? "-34%" : 0) }} exit={{ opacity: 0, y: 15, x: (isLastChild ? "-34%" : 0) }} animate={{ opacity: 1, y: 22, x: (isLastChild ? "-34%" : 0) }}>
+
+                                <motion.div className={styles.thead__actions} style={{ left: ((ref.current?.clientWidth ?? 0) - 55) ?? 0 }}
+                                    initial={{ opacity: 0, y: 0, x: (isLastChild ? "-34%" : 0) }}
+                                    exit={{ opacity: 0, y: 15, x: (isLastChild ? "-34%" : 0) }}
+                                    animate={{ opacity: 1, y: 22, x: (isLastChild ? "-34%" : 0) }}>
                                     <>
                                         {Boolean(currentTh.canSort) ? <SortActions param={currentTh.param} /> : null}
                                         {currentTh.filter ? <FiltersActions label={currentTh.label} filter={currentTh.filter} /> : null}
                                     </>
                                 </motion.div>
+
                             ) : (null)}
                         </AnimatePresence>
                     </>

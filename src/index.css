@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  border-color: var(--border_color) !important;
 }
 
 :root {
@@ -12,19 +13,46 @@
   --scroll_hover: rgb(7, 99, 160);
   --border_shadow_lg: rgba(0, 0, 0, 0.388);
   --border_shadow_sm: rgba(0, 0, 0, 0.177);
+
+  /*--------------------global--------------------*/
+  --main_color: rgb(0, 136, 255);
+  --border_color: #C5C5C5;
 }
 
-input {
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input,
+select {
   outline: none;
+  border-style: solid;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -moz-appearance: textfield;
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type=number],
+input[type=datetime-local] {
+  font-family: Roboto, sans-serif;
+}
+
+input:not([type=number], [type=datetime-local]),
+textarea,
+div,
+label,
+button {
+  font-family: Lato, sans-serif;
+}
+
+input[type=checkbox]:checked {
+  accent-color: var(--main_color);
 }

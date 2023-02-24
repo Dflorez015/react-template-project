@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>grilla</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grilla</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@200;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+    body {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .index__loading {
+      /*app bg*/
+      background-color: #F0F0FF;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .index__loading span {
+      font-family: Roboto, sans-serif;
+      color: #28348C;
+      font-weight: 400;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <div class="index__loading">
+      <img src="/loading.svg" alt="">
+      <span>Cargando recursos</span>
+    </div>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

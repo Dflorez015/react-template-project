@@ -18,7 +18,7 @@
     }
 }
 
-/* grid wrapper ----------------------------- */
+/* grid wrapper ----------------------------------------------------------------*/
 
 .grid__wrapper__style {
     width: 100%;
@@ -102,6 +102,8 @@
     border-bottom: none;
 }
 
+/* grid thead ----------------------------------------------------------------*/
+
 .thead__actions {
     height: fit-content;
     min-width: 160px;
@@ -140,13 +142,13 @@
     background: var(--scroll_hover);
 }
 
-
 .grid__svg__action__button {
-    border: 1px solid var(--border_shadow_lg);
+    cursor: pointer;
+    margin-top: auto;
     height: 1rem;
     width: 1rem;
+    border: 1px solid var(--border_shadow_lg);
     transition: box-shadow .2s ease;
-    cursor: pointer;
 }
 
 .grid__svg__action__button:hover {
@@ -165,7 +167,6 @@
     white-space: nowrap;
     font-size: clamp(12px, 2vw, 16px);
     display: flex;
-    align-content: center;
     text-align: left;
     position: relative;
     gap: 0.5rem;
@@ -238,7 +239,7 @@
     padding-bottom: 10px;
 }
 
-.form__filter__wrapper > button {
+.form__filter__wrapper>button {
     cursor: pointer;
     width: fit-content;
     margin-inline: auto;

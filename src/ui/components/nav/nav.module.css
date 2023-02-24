@@ -9,13 +9,13 @@
     margin-top: 0.8rem;
     margin-inline: 1rem;
     border-radius: 11px;
-    width: 60px;
+    /* width: 60px; */
     height: fit-content;
 }
 
 .nav__menu__opened__wrapper {
-    width: 300px;
-    height: 100vh;
+    /* width: 300px; */
+    height: 100%;
 }
 
 /*-------------- nav content --------------*/
@@ -48,6 +48,10 @@
 .nav__menu__header[menu-open="true"] {
     padding-inline: 1rem;
     border-bottom: 2px solid var(--border_shadow_lg);
+}
+
+.nav__menu__header>img {
+    transition: transform 0.2s linear;
 }
 
 .nav__menu__header[menu-open="true"]>img {
