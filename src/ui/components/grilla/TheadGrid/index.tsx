@@ -3,7 +3,8 @@ import { useContext, useMemo, useRef } from "react"
 import { GridContext, ITheadGrid } from "../context"
 import { useIsColumnInAction } from "../hooks";
 import { FiltersActions, SortActions } from "./actions";
-import styles from './grid.module.css';
+import { gridColumnAnimation } from "./grid.animation";
+import styles from '../grid.module.css';
 
 const GridThead = () => {
     const thead = useContext(GridContext).thead
@@ -16,26 +17,27 @@ const GridThead = () => {
         <thead>
             <tr>
                 {thead.map((th, index) => (
-                    <AnimatePresence key={index}>
-                        {!th.hiddeColumn && (
-                            <ThContent currentTh={th} isLastChild={lastColumn.param === th.param} />
-                        )}
-                    </AnimatePresence>
+                    <ThContent currentTh={th} isLastChild={lastColumn.param === th.param} hiddenColumn={Boolean(th.hiddeColumn)} key={index} />
                 ))}
             </tr>
         </thead>
     )
 }
 
-const ThContent = ({ currentTh, isLastChild }: { currentTh: ITheadGrid, isLastChild: boolean }) => {
+const ThContent = ({ currentTh, isLastChild, hiddenColumn }: { currentTh: ITheadGrid, isLastChild: boolean, hiddenColumn: boolean }) => {
 
     const currentFilterColumnOpen = useContext(GridContext).currentFilterColumnOpen
+
+    const thAnimation = useMemo(() => {
+        if (hiddenColumn) return "hiddenColumn"
+
+        return "showColumn"
+    }, [hiddenColumn])
 
     const ref = useRef<HTMLDivElement>(null)
 
     return (
-        <motion.th style={currentTh.style} data-action={Boolean(currentTh.isAction)}
-            initial={{ opacity: 0 }} exit={{ opacity: 0, maxWidth: 0 }} animate={{ opacity: 1, maxWidth: "100%" }}>
+        <motion.th style={currentTh.style} data-action={Boolean(currentTh.isAction)} animate={thAnimation} variants={gridColumnAnimation}>
             <div className={styles.thead__content} ref={ref}>
 
                 {currentTh.label}

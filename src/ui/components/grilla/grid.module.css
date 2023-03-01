@@ -61,7 +61,7 @@
 .grid__style thead tr {
     position: sticky;
     top: 0;
-    z-index: 4;
+    /* z-index: 1; */
     border-bottom: 1px solid;
 
     /*--- custome ---*/
@@ -102,18 +102,22 @@
     border-bottom: none;
 }
 
+.grid__style tbody tr td:not(:first-child) {
+    padding-left: 1.2rem;
+}
+
 /* grid thead ----------------------------------------------------------------*/
 
 .thead__actions {
     height: fit-content;
     min-width: 160px;
-    max-height: 250px;
+    max-height: 260px;
     padding-block: 8px 0px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     position: absolute;
-    z-index: 5;
+    z-index: 2;
     /* transform: translateY(22px); */
     border-radius: 8px;
     overflow-y: auto;
@@ -236,7 +240,7 @@
     flex-direction: column;
     gap: 5px;
     padding-inline: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .form__filter__wrapper>button {
@@ -337,12 +341,10 @@
 /* top buttons css --------------------------------------------------------------------*/
 
 .top__button__action {
-    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.2rem;
     padding: 0.2rem 0.6rem;
-    border: none;
     font-size: clamp(14px, 2vw, 16px);
 
     /*--- custome ---*/

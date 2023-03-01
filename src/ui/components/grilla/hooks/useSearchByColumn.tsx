@@ -2,7 +2,10 @@ import { useContext, useEffect, useMemo } from "react"
 import { GridContext, IFilter } from "../context"
 
 export const useSearchInput = () => {
-    const { thead, pagination, intervalSetFilter } = useContext(GridContext)
+    const thead = useContext(GridContext).thead
+    const pagination = useContext(GridContext).pagination
+    const intervalSetFilter = useContext(GridContext).intervalSetFilter
+
     useRefreshFilterSearch()
 
     const columnsWithSearch = useMemo(() => {

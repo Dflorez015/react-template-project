@@ -9,13 +9,18 @@
 :root {
   --component_bg: white;
   --shadow: 0 1px 4px rgb(0 0 0 / 12%), 0 1px 6px rgb(0 0 0 / 24%);
-  --scroll: rgb(8, 125, 202);
-  --scroll_hover: rgb(7, 99, 160);
   --border_shadow_lg: rgba(0, 0, 0, 0.388);
   --border_shadow_sm: rgba(0, 0, 0, 0.177);
+  
+  /*--------------------custome--------------------*/
+  --scroll: rgb(8, 125, 202);
+  --scroll_hover: rgb(7, 99, 160);
 
-  /*--------------------global--------------------*/
   --main_color: rgb(0, 136, 255);
+  --contrary_main_color: rgb(0, 82, 153);
+  --main_color_a2: rgba(0, 136, 255, 0.145);
+  --stroke_color: rgb(8, 26, 58);
+  --stroke_disabled: #b1b1b1;
   --border_color: #C5C5C5;
 }
 
@@ -51,8 +56,26 @@ div,
 label,
 button {
   font-family: Lato, sans-serif;
+  color: var(--stroke_color);
 }
 
 input[type=checkbox]:checked {
   accent-color: var(--main_color);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  background-color: rgba(222, 222, 222, 0.312);
+  width: 100vw;
+  height: 100vh;
+}
+
+.ReactModal__Overlay--before-close {
+  pointer-events: none;
 }

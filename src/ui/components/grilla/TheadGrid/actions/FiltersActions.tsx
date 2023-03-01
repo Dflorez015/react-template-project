@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 import { useGetTextFilterByParam, useHandleIntervalFilter, useHandleTextInputWithTimer } from "@components/grilla/hooks"
 import { LoadingIcon, DeleteFilterText } from "@components/grilla/utils/Icon"
-import styles from "../grid.module.css"
+import styles from "@grilla/grid.module.css"
 import { getCurrentDate } from "@services/utility"
 import { IFilter } from "@components/grilla/context"
 

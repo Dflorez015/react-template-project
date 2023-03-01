@@ -11,3 +11,14 @@ export const MenuList = styled(MenuInner).attrs(() => ({
         box-shadow: var(--shadow);
     }
 `;
+
+export const MenuRowGrid = styled(MenuInner).attrs(() => ({
+    transition: true,
+    direction:"right"
+}))`
+    ${menuSelector.name} {
+        padding-block: 0px;
+        margin-left: 5px !important;
+        box-shadow: var(--shadow);
+    }
+`;

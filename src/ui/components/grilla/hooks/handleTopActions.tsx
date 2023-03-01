@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react"
 import { ArrowRightDirection, ColumnsIcon } from "../utils/Icon"
-import styles from "@components/grilla/TheadGrid/grid.module.css"
+import styles from "@grilla/grid.module.css"
 import { GridContext } from "../context"
 
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>
@@ -13,11 +13,11 @@ export const useHandleShowColumn = () => {
             <ColumnsIcon />
             Columnas
         </button>
-    }, [])
+    }, [showAsideColumnHandler])
 
     const arrow = useMemo(() => {
         return <ArrowRightDirection onClick={changeAsideColumnValue} />
-    }, [])
+    }, [showAsideColumnHandler])
 
     const changeInput = (e: IChangeEvent) => {
         const { checked, name } = e.target

@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react"
 import { GridContext } from "../../context"
-import styles from "../grid.module.css"
+import styles from "@grilla/grid.module.css"
 
 interface ISortProps { param: string }
 export const SortActions = ({ param }: ISortProps) => {

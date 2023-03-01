@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { MenuItem } from "@szhsin/react-menu"
 import { MenuList } from "@components/styled"
-import styles from "../grid.module.css"
+import styles from "@grilla/grid.module.css"
 import { useHandleTextInputWithTimer, useSearchInput, useHandleShowColumn } from "@grilla/hooks"
 import { LoadingIcon, DeleteFilterText, ColumnsIcon, OptionsIcon } from "@grilla/utils/Icon"
 
@@ -67,12 +66,10 @@ export const HandleColumnsVisibility = () => {
     )
 }
 
-export const TopListActions = () => {
+export const TopListActions = ({ children }: { children?: React.ReactNode }) => {
     return (
         <MenuList menuButton={<button className={styles.top__button__action}><OptionsIcon />Opciones</button>}>
-            <MenuItem>A</MenuItem>
-            <MenuItem>B</MenuItem>
-            <MenuItem>C</MenuItem>
+            {children}
         </MenuList>
     )
 }

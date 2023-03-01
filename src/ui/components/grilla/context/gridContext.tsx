@@ -52,6 +52,7 @@ export interface Ipagination {
     filt?: IFilter[]
     group?: string
     sort?: ISortType
+    [key: string]: string | undefined | ISortType | IFilter[]
 }
 
 export interface IGridContext extends IContextState {

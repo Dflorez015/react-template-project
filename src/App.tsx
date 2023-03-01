@@ -2,6 +2,10 @@ import { ITheadGrid } from "@grilla/context"
 import { Grilla } from "@grilla/index"
 import { useGridInfo } from "@grilla/hooks"
 import { NavBarMenu } from "@components/nav"
+import { Fragment, useState } from "react"
+import { CustomeModal } from "@ui/components/modal"
+import { MenuItem } from "@szhsin/react-menu"
+import { TrActionComponent } from "@ui/components/grilla/utils"
 
 const ejemplo: ITheadGrid[] = [
   {
@@ -79,36 +83,58 @@ function App() {
         display: "flex", width: "100vw", height: "60vh", flexDirection: "column",
         overflowX: "auto", gap: "1.2rem", padding: "10px"
       }}>
-        <Grilla thead={[...ejemplo]} url="yyyyyy" gridOptions={<></>} children={
-          <tbody >
-            <tr><td>dds</td><td><AAA /></td></tr>
-            <tr>
-              <td>adasdsd</td>
-              <td>
-                <div style={{ width: "50vw", height: "40vh", padding: "1.2rem" }}>
-                  <Grilla thead={[...ejemplo2]} url="lllll" withoutTopActions>
-                    <tbody>
-                      <tr><td><AAA /></td></tr>
-                    </tbody>
-                  </Grilla>
-                </div>
-              </td>
-            </tr>
-            <tr><td>adasdsd</td><td>jjjj</td></tr>
-          </tbody>
+
+        <Grilla thead={[...ejemplo]} url="yyyyyy" gridOptions={<GridOptions />} children={
+          <AAA />
         } />
+
       </div>
     </div>
   )
 }
 
-function AAA() {
-  const { queryParams } = useGridInfo()
+const GridOptions = () => {
+  const [modalStatus, setModalStatus] = useState({ first: false, second: false })
   return (
     <>
-      {queryParams}
+      <MenuItem onClick={() => setModalStatus({ ...modalStatus, first: true })}>Add Modal</MenuItem>
+
+      <CustomeModal isOpen={modalStatus.first} shouldCloseOnEsc={true}
+        onRequestClose={() => setModalStatus({ ...modalStatus, first: false })} >
+        <div>Modal 1</div>
+        <button onClick={() => setModalStatus({ ...modalStatus, first: false })}>Close</button>
+        <button onClick={() => setModalStatus({ ...modalStatus, second: true })}>Modal 2</button>
+      </CustomeModal>
+
+      <CustomeModal isOpen={modalStatus.second} shouldCloseOnOverlayClick={false} onRequestClose={() => setModalStatus({ ...modalStatus, second: false })}>
+        aaaaaaaaaaaaaaaa
+        <button onClick={() => setModalStatus({ ...modalStatus, second: false })}>Close modal 2</button>
+      </CustomeModal>
     </>
   )
+}
+
+function AAA() {
+  const { queryParams, thead } = useGridInfo()
+
+  return (
+    <tbody>
+      <tr>
+        <TrActionComponent children={<TrActions />} />
+        {thead.map(({ param, hiddeColumn, isAction }, index) => (
+          <Fragment key={index}>
+            {(!hiddeColumn && !isAction) && (
+              <td>{param}</td>
+            )}
+          </Fragment>
+        ))}
+      </tr>
+    </tbody>
+  )
+}
+
+const TrActions = () => {
+  return <MenuItem>aaaaaaaaaaa</MenuItem>
 }
 
 export default App

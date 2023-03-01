@@ -8,19 +8,21 @@ export const useHandleGridContext = (currentState: IContextState) => {
     const [state, dispatch] = useReducer(UseGridReducer, initialState)
 
     const changePage = (num: number) => {
-        dispatch({ type: "CHANGE_PAGE", payload: num })
+        const pagination = { ...state.pagination, page: `${num}` }
+        dispatch({ pagination })
     }
 
     const changeLimit = (num: number) => {
-        dispatch({ type: "CHANGE_LIMIT", payload: num })
+        const pagination = { ...state.pagination, limit: `${num}` }
+        dispatch({ pagination })
     }
 
     const showFilterColumn = (columnParam: string) => {
         if (state.currentFilterColumnOpen === columnParam) {
-            dispatch({ type: "SET_FILTER_PARAM", payload: undefined })
+            dispatch({ currentFilterColumnOpen: undefined })
             return
         }
-        dispatch({ type: "SET_FILTER_PARAM", payload: columnParam })
+        dispatch({ currentFilterColumnOpen: columnParam })
         return
     }
 
@@ -31,39 +33,47 @@ export const useHandleGridContext = (currentState: IContextState) => {
         // delete filters from the column hidden
         if (value) {
             const filt = state.pagination?.filt as IFilter[] | undefined
-            dispatch({ type: "SET_FILTER", payload: filt?.filter((filter) => filter.param !== column.param) })
+            const pagination = { ...state.pagination, filt: filt?.filter((filter) => filter.param !== column.param) }
+            dispatch({ pagination })
         }
 
         currentThead[indexColumn] = { ...column, hiddeColumn: value }
-        dispatch({ type: "SET_THEAD", payload: currentThead })
+        dispatch({ thead: currentThead })
     }
 
     const sortByParam = (param: string, desc: boolean) => {
         const sort = state.pagination?.sort as ISortType | undefined
+        let pagination = { ...state.pagination }
 
         // delete sort value if the column has been filtered
         if ((sort) && (sort.selector === param) && (sort.desc === desc)) {
-            dispatch({ type: "SET_SORT", payload: undefined })
+            pagination.sort = undefined
+            dispatch({ pagination })
             return
         }
 
-        dispatch({ type: "SET_SORT", payload: { desc, selector: param } as ISortType })
+        pagination.sort = { desc, selector: param } as ISortType
+        dispatch({ pagination })
         return
     }
 
     const simpleSetFilter = (param: string, signal: signalType, type: filterTextType, value?: string | number) => {
         const filt = state.pagination?.filt as IFilter[] | undefined
         const newFilter: IFilter = { param, signal, value, type }
+        let pagination = { ...state.pagination }
 
         // delete all the filters with the same param
         if (filt) {
             let currentFilt = [...filt].filter((filt) => filt.param !== param)
             Boolean(value) && currentFilt.push(newFilter)
-            dispatch({ type: "SET_FILTER", payload: currentFilt.length > 0 ? currentFilt : undefined })
+
+            pagination.filt = currentFilt.length > 0 ? currentFilt : undefined
+            dispatch({ pagination })
             return
         }
 
-        Boolean(value) && dispatch({ type: "SET_FILTER", payload: [newFilter] })
+        pagination.filt = [newFilter]
+        Boolean(value) && dispatch({ pagination })
         return
     }
 
@@ -71,20 +81,29 @@ export const useHandleGridContext = (currentState: IContextState) => {
         const filt = state.pagination?.filt as IFilter[] | undefined
         const currentParam = newFilters.map((filt) => filt.param)
         const cleanNewFilter = newFilters.filter((filt) => Boolean(filt.value))
+        let pagination = { ...state.pagination }
 
         // delete all the filters with the same param
         if (filt) {
             let currentFilt = [...filt].filter((filt) => !currentParam.includes(filt.param))
             currentFilt = [...currentFilt, ...cleanNewFilter]
-            dispatch({ type: "SET_FILTER", payload: currentFilt.length > 0 ? currentFilt : undefined })
+
+            pagination.filt = currentFilt.length > 0 ? currentFilt : undefined
+            dispatch({ pagination })
             return
         }
 
-        dispatch({ type: "SET_FILTER", payload: cleanNewFilter.length > 0 ? cleanNewFilter : undefined })
+        pagination.filt = cleanNewFilter.length > 0 ? cleanNewFilter : undefined
+        dispatch({ pagination })
         return
     }
 
-    const changeAsideColumnValue = () => dispatch({ type: "SET_ASIDE_COLUMN", payload: undefined })
+    const changeAsideColumnValue = () => {
+        dispatch({ showAsideColumnHandler: !state.showAsideColumnHandler })
+    }
 
-    return { state, changePage, changeLimit, showFilterColumn, sortByParam, simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue }
+    return {
+        state, changePage, changeLimit, showFilterColumn, sortByParam,
+        simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue
+    }
 }

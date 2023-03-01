@@ -49,7 +49,6 @@ const filterAdapter = (filt: IFilter[] | undefined) => {
         else if (searchInputFilt.length === 1) queryFilt.push(`${searchInputFilt.toString().replaceAll("],[", `],"or",[`)}`)
 
         return queryFilt.toString().replaceAll("],[", `],"and",[`)
-
     }
     return ""
 }
@@ -60,8 +59,7 @@ const sortAdapter = (sort: ISortType | undefined) => {
 }
 
 export const useGridInfo = () => {
-    const pagination = useContext(GridContext).pagination
-    const url = useContext(GridContext).url
+    const { pagination, thead, url } = useContext(GridContext)
 
     const queryParams: string = useMemo(() => {
         if (pagination) {
@@ -79,5 +77,5 @@ export const useGridInfo = () => {
         return url + "?" + new URLSearchParams({ page: "1", limit: "30" }).toString()
     }, [pagination])
 
-    return { queryParams }
+    return { queryParams, thead }
 }
