@@ -102,8 +102,12 @@ export const useHandleGridContext = (currentState: IContextState) => {
         dispatch({ showAsideColumnHandler: !state.showAsideColumnHandler })
     }
 
+    const setRowToExpand = (rowExpanded: string) => {
+        state.rowExpanded !== rowExpanded ? dispatch({ rowExpanded }) : dispatch({ rowExpanded: undefined })
+    }
+
     return {
-        state, changePage, changeLimit, showFilterColumn, sortByParam,
+        state, changePage, changeLimit, showFilterColumn, sortByParam, setRowToExpand,
         simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue
     }
 }

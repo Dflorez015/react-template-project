@@ -102,7 +102,7 @@
     border-bottom: none;
 }
 
-.grid__style tbody tr td:not(:first-child) {
+.grid__style tbody tr td:not(:first-child, td:has(button)) {
     padding-left: 1.2rem;
 }
 
@@ -294,6 +294,26 @@
     animation: rotate 1s linear infinite;
 }
 
+.expand__icon__button {
+    background-color: var(--component_bg);
+}
+
+.expand__icon__button>svg {
+    height: 1.4rem;
+    width: 1.4rem;
+    transition: transform .2s linear;
+}
+
+.nested__grid__wrapper {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-block: 2rem;
+}
+
 /* search input css ----------------------------------------------------------------*/
 
 .top__actions__wrapper {
@@ -450,4 +470,34 @@
 
 .aside__list__columns input {
     margin-right: 0.4rem;
+}
+
+/* footer grid --------------------------------------------------------------------*/
+.grid__footer__wrapper {
+    position: relative;
+    padding: 0.6rem 0.6rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    /*--- custome ---*/
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    background-color: var(--component_bg);
+}
+
+.grid__footer__wrapper>div {
+    display: flex;
+    gap: .2rem;
+    align-items: center;
+}
+
+.division__component__grid {
+    height: 100%;
+    border-left: 1px solid var(--border_color);
+    padding-right: 5px;
+}
+
+.pagination__legend {
+    font-family: Roboto, sans-serif;
 }

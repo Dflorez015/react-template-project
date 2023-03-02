@@ -1,45 +1,14 @@
-import { motion } from "framer-motion";
-import styled from "styled-components";
-import { MenuRowGrid } from "@ui/components/styled";
-import { RowActionSvg } from "./Icon";
+import { useContext } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { MenuRowGrid, MenuActionRow } from "@ui/components/styled";
+import { ExpandGridRow, RowActionSvg } from "./Icon";
+import { GridContext } from "../context";
+import styles from "@grilla/grid.module.css"
 
-const MenuActionRow = styled(motion.button).attrs(() => ({
-    type: "button",
-})) <{ $isOpen: boolean }>`
-    height: 30px;
-    width: 30px;
-    margin-block: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-inline: auto;
-    border-radius: 18px;
-    
-    /* custome */
-    
-    transition: box-shadow .2s ease-in,  background-color .2s linear;
+interface IComponentChildren { children: JSX.Element }
+interface IComponentId { rowId: string }
 
-    & > svg {
-        height: .9rem;
-        width: .9rem;
-        fill: var(--stroke_color);
-    }
-
-    ${({ $isOpen }) => $isOpen ? `
-        box-shadow: inset 0px 0px 5px #c1c1c1;
-        background-color: var(--main_color_a2);
-
-        & > svg {
-            fill: var(--main_color);
-        }
-    `: `
-        :hover {
-            box-shadow: var(--shadow);
-        }
-    `}
-`
-
-export const TrActionComponent = ({ children }: { children: JSX.Element }) => {
+export const TdActionComponent = ({ children }: IComponentChildren) => {
 
     return (
         <td style={{ textAlign: "center" }}>
@@ -49,5 +18,36 @@ export const TrActionComponent = ({ children }: { children: JSX.Element }) => {
                 </>
             </MenuRowGrid>
         </td>
+    )
+}
+
+export const TdExpandGridButton = ({ rowId }: IComponentId) => {
+
+    const rowExpanded = useContext(GridContext).rowExpanded
+    const setRowToExpand = useContext(GridContext).setRowToExpand!
+
+    return (
+        <td style={{ textAlign: "center" }}>
+            <ExpandGridRow isExpanded={rowExpanded === rowId} onClick={() => setRowToExpand(rowId)} />
+        </td >
+    )
+}
+
+export const RowNestedGridExpanded = ({ children, rowId }: IComponentChildren & IComponentId) => {
+
+    const rowExpanded = useContext(GridContext).rowExpanded
+
+    return (
+        <AnimatePresence>
+            {rowExpanded === rowId ? (
+                <motion.tr style={{ overflowY: "hidden", position: "relative", backgroundColor: "var(--stroke_disabled)" }} initial={{ height: 0, opacity: 0 }} exit={{ height: 0, opacity: 0 }} animate={{ height: 250, opacity: 1 }}>
+                    <td>
+                        <div className={styles.nested__grid__wrapper}>
+                            {children}
+                        </div>
+                    </td>
+                </motion.tr>
+            ) : null}
+        </AnimatePresence>
     )
 }

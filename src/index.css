@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: Lato, sans-serif;
   border-color: var(--border_color) !important;
 }
 
@@ -11,7 +11,7 @@
   --shadow: 0 1px 4px rgb(0 0 0 / 12%), 0 1px 6px rgb(0 0 0 / 24%);
   --border_shadow_lg: rgba(0, 0, 0, 0.388);
   --border_shadow_sm: rgba(0, 0, 0, 0.177);
-  
+
   /*--------------------custome--------------------*/
   --scroll: rgb(8, 125, 202);
   --scroll_hover: rgb(7, 99, 160);
@@ -20,9 +20,11 @@
   --contrary_main_color: rgb(0, 82, 153);
   --main_color_a2: rgba(0, 136, 255, 0.145);
   --stroke_color: rgb(8, 26, 58);
-  --stroke_disabled: #b1b1b1;
+  --stroke_disabled: #b1b1b191;
   --border_color: #C5C5C5;
 }
+
+  /*-------------------- app config elements --------------------*/
 
 li {
   list-style: none;
@@ -71,11 +73,36 @@ button {
 .modal__overlay {
   position: fixed;
   top: 0;
-  background-color: rgba(222, 222, 222, 0.312);
+  background-color: rgba(0, 0, 0, 0.312);
   width: 100vw;
   height: 100vh;
 }
 
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
 .ReactModal__Overlay--before-close {
-  pointer-events: none;
+  opacity: 0;
+}
+
+.ReactModal__Content {  
+  opacity: 0;
+  top: 0;
+  transition: top .2s linear, opacity .15s linear;
+}
+
+.ReactModal__Content--after-open {
+  opacity: 1;
+  top: 50%;
+}
+
+.ReactModal__Content--before-close {
+  top: 0;
+  opacity: 0;
 }

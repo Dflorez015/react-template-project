@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { GridContext } from "../context";
 import { PaginationBackArrow, PaginationNextArrow } from "../utils/Icon";
+import styles from "@grilla/grid.module.css"
 
 const StylePaginate = styled(ReactPaginate)`
 display: flex;
@@ -25,7 +26,7 @@ display: flex;
     }
 }
 
-.previous__btn, .next__btn{
+.previous__button, .next__button{
     & a {
         background-color: var(--main_color_a2);
         color: var(--stroke_color);
@@ -74,7 +75,7 @@ export const GridPageSelector = () => {
 
     return (
         <div>
-            <div className="pagination__legend">
+            <div className={styles.pagination__legend}>
                 Página {page} de {pagination.totalPages}
             </div>
 
@@ -89,8 +90,8 @@ export const GridPageSelector = () => {
                 marginPagesDisplayed={1}
                 activeClassName="page__active"
                 disabledClassName="page__disabled"
-                previousClassName="previous__btn"
-                nextClassName="next__btn"
+                previousClassName="previous__button"
+                nextClassName="next__button"
             />
         </div>
     )

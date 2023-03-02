@@ -3,13 +3,20 @@ import { Grilla } from "@grilla/index"
 import { useGridInfo } from "@grilla/hooks"
 import { NavBarMenu } from "@components/nav"
 import { Fragment, useState } from "react"
-import { CustomeModal } from "@ui/components/modal"
+import { CustomeModal, StyleModal } from "@ui/components/modal"
 import { MenuItem } from "@szhsin/react-menu"
-import { TrActionComponent } from "@ui/components/grilla/utils"
+import { TdActionComponent, TdExpandGridButton, RowNestedGridExpanded } from "@ui/components/grilla/utils"
+
+StyleModal.setAppElement('#root');
 
 const ejemplo: ITheadGrid[] = [
   {
     label: "Acciones",
+    param: "",
+    isAction: true,
+  },
+  {
+    label: "Expandir",
     param: "",
     isAction: true,
   },
@@ -99,12 +106,14 @@ const GridOptions = () => {
     <>
       <MenuItem onClick={() => setModalStatus({ ...modalStatus, first: true })}>Add Modal</MenuItem>
 
+
       <CustomeModal isOpen={modalStatus.first} shouldCloseOnEsc={true}
-        onRequestClose={() => setModalStatus({ ...modalStatus, first: false })} >
+        onRequestClose={() => setModalStatus({ ...modalStatus, first: false })} closeButton>
         <div>Modal 1</div>
         <button onClick={() => setModalStatus({ ...modalStatus, first: false })}>Close</button>
         <button onClick={() => setModalStatus({ ...modalStatus, second: true })}>Modal 2</button>
       </CustomeModal>
+
 
       <CustomeModal isOpen={modalStatus.second} shouldCloseOnOverlayClick={false} onRequestClose={() => setModalStatus({ ...modalStatus, second: false })}>
         aaaaaaaaaaaaaaaa
@@ -115,12 +124,14 @@ const GridOptions = () => {
 }
 
 function AAA() {
-  const { queryParams, thead } = useGridInfo()
+  const { queryParams, thead, rowExpanded } = useGridInfo()
 
   return (
     <tbody>
       <tr>
-        <TrActionComponent children={<TrActions />} />
+        <TdActionComponent children={<TrActions />} />
+        <TdExpandGridButton rowId="mondongo" />
+
         {thead.map(({ param, hiddeColumn, isAction }, index) => (
           <Fragment key={index}>
             {(!hiddeColumn && !isAction) && (
@@ -129,6 +140,24 @@ function AAA() {
           </Fragment>
         ))}
       </tr>
+
+      <RowNestedGridExpanded rowId="mondongo">
+        <>
+          <Grilla thead={[...ejemplo2]} url="uuuuuu" gridOptions={<GridOptions />} withoutTopActions children={
+            <BBB />
+          } />
+        </>
+      </RowNestedGridExpanded>
+
+    </tbody>
+  )
+}
+
+function BBB() {
+  const { queryParams, thead } = useGridInfo()
+  return (
+    <tbody>
+      <tr><td>{queryParams}</td></tr>
     </tbody>
   )
 }

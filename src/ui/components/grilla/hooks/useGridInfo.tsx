@@ -59,7 +59,7 @@ const sortAdapter = (sort: ISortType | undefined) => {
 }
 
 export const useGridInfo = () => {
-    const { pagination, thead, url } = useContext(GridContext)
+    const { pagination, thead, url, rowExpanded } = useContext(GridContext)
 
     const queryParams: string = useMemo(() => {
         if (pagination) {
@@ -77,5 +77,5 @@ export const useGridInfo = () => {
         return url + "?" + new URLSearchParams({ page: "1", limit: "30" }).toString()
     }, [pagination])
 
-    return { queryParams, thead }
+    return { queryParams, thead, rowExpanded }
 }

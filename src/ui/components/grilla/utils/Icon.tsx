@@ -1,4 +1,3 @@
-
 import styles from "@grilla/grid.module.css"
 
 export const DeleteFilterText = ({ remove }: { remove: () => void }) => {
@@ -55,5 +54,13 @@ export const PaginationNextArrow = () => {
 export const PaginationBackArrow = () => {
     return (
         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"></path></svg>
+    )
+}
+
+export const ExpandGridRow = ({ isExpanded, onClick }: { isExpanded: boolean, onClick: () => void }) => {
+    return (
+        <button type="button" className={styles.expand__icon__button}>
+            <svg onClick={onClick} style={{ transform: `rotate(${isExpanded ? "0deg" : "180deg"})` }} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>
+        </button>
     )
 }

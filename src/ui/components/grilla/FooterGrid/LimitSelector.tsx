@@ -9,7 +9,7 @@ font-family: Roboto, sans-serif;
 padding: 5px;
 text-align: center;
 border-radius: 20px;
-transition: background-color , color .2s ease-in-out;
+transition: background-color, color .2s ease-in-out;
 
 ${({ $active }) => $active ? `
     background-color: var(--main_color);
@@ -19,7 +19,7 @@ ${({ $active }) => $active ? `
     `: `
     :hover {
         transition: box-shadow .2s ease-in;
-        box-shadow: var(--shadow);
+        box-shadow: 2px 3px 6px var(--border_shadow_sm);
     }
 `}
 `

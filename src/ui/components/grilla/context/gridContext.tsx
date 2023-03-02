@@ -60,6 +60,7 @@ export interface IGridContext extends IContextState {
     pagination?: Ipagination
     currentFilterColumnOpen?: string
     showAsideColumnHandler?: boolean
+    rowExpanded?: string
     changeLimit?: (num: number) => void
     changePage?: (num: number) => void
     sortByParam?: (param: string, desc: boolean) => void
@@ -68,6 +69,7 @@ export interface IGridContext extends IContextState {
     intervalSetFilter?: (newFilters: IFilter[]) => void
     changeAsideColumnValue?: () => void
     setTheadHiddenValue?: (column: ITheadGrid, value: boolean) => void
+    setRowToExpand?: (rowId: string) => void
 }
 
 export const GridContext = createContext<IGridContext>({ url: "", thead: [] });

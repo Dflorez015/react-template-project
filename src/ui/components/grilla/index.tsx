@@ -6,12 +6,12 @@ import { TopListActions } from "./TheadGrid/actions/TopTheadActions";
 import styles from "./grid.module.css";
 
 export const Grilla = ({ url, thead, children, withoutTopActions, gridOptions }: IGrid) => {
-    const { state, changeLimit, changePage, showFilterColumn, sortByParam,
+    const { state, changeLimit, changePage, showFilterColumn, sortByParam, setRowToExpand,
         simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue } = useHandleGridContext({ url, thead })
 
     return (
         <GridContext.Provider value={{
-            ...state, sortByParam, changeLimit, changePage, showFilterColumn,
+            ...state, sortByParam, changeLimit, changePage, showFilterColumn, setRowToExpand,
             simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue
         }}>
 
