@@ -3,11 +3,10 @@ import { Grilla } from "@grilla/index"
 import { useGridInfo } from "@grilla/hooks"
 import { NavBarMenu } from "@components/nav"
 import { Fragment, useState } from "react"
-import { CustomeModal, StyleModal } from "@ui/components/modal"
+import { CustomeModal } from "@ui/components/modal"
 import { MenuItem } from "@szhsin/react-menu"
 import { TdActionComponent, TdExpandGridButton, RowNestedGridExpanded } from "@ui/components/grilla/utils"
 
-StyleModal.setAppElement('#root');
 
 const ejemplo: ITheadGrid[] = [
   {
@@ -124,7 +123,7 @@ const GridOptions = () => {
 }
 
 function AAA() {
-  const { queryParams, thead, rowExpanded } = useGridInfo()
+  const { queryParams, thead } = useGridInfo()
 
   return (
     <tbody>

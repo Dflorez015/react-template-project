@@ -3,26 +3,38 @@ import { filterTextType, IContextState, IFilter, IGridContext, ISortType, IThead
 import UseGridReducer from "./useReducer"
 
 export const useHandleGridContext = (currentState: IContextState) => {
-    const initialState: IGridContext = { ...currentState }
+    const initialState: IGridContext = { pagination: { page: "1", limit: "20" }, ...currentState }
 
     const [state, dispatch] = useReducer(UseGridReducer, initialState)
 
     const changePage = (num: number) => {
-        const pagination = { ...state.pagination, page: `${num}` }
-        dispatch({ pagination })
+        dispatch({ type: "CHANGE_PAGE", payload: `${num}` })
     }
 
     const changeLimit = (num: number) => {
-        const pagination = { ...state.pagination, limit: `${num}` }
-        dispatch({ pagination })
+        dispatch({ type: "CHANGE_LIMIT", payload: `${num}` })
     }
 
     const showFilterColumn = (columnParam: string) => {
         if (state.currentFilterColumnOpen === columnParam) {
-            dispatch({ currentFilterColumnOpen: undefined })
+            dispatch({ type: "SET_FILTER_PARAM", payload: undefined })
             return
         }
-        dispatch({ currentFilterColumnOpen: columnParam })
+        dispatch({ type: "SET_FILTER_PARAM", payload: columnParam })
+        return
+    }
+
+    const sortByParam = (param: string, desc: boolean) => {
+        const sort = state.pagination?.sort as ISortType | undefined
+
+        // delete sort value if the column has been filtered
+        if ((sort) && (sort.selector === param) && (sort.desc === desc)) {
+            dispatch({ type: "SET_SORT", payload: undefined })
+            return
+        }
+
+        const newSort = { desc, selector: param } as ISortType
+        dispatch({ type: "SET_SORT", payload: newSort })
         return
     }
 
@@ -33,47 +45,30 @@ export const useHandleGridContext = (currentState: IContextState) => {
         // delete filters from the column hidden
         if (value) {
             const filt = state.pagination?.filt as IFilter[] | undefined
-            const pagination = { ...state.pagination, filt: filt?.filter((filter) => filter.param !== column.param) }
-            dispatch({ pagination })
+            const newFilt = filt?.filter((filter) => filter.param !== column.param)
+            dispatch({ type: "SET_FILTER", payload: newFilt })
         }
 
         currentThead[indexColumn] = { ...column, hiddeColumn: value }
-        dispatch({ thead: currentThead })
+        dispatch({ type: "SET_THEAD", payload: currentThead })
     }
 
-    const sortByParam = (param: string, desc: boolean) => {
-        const sort = state.pagination?.sort as ISortType | undefined
-        let pagination = { ...state.pagination }
-
-        // delete sort value if the column has been filtered
-        if ((sort) && (sort.selector === param) && (sort.desc === desc)) {
-            pagination.sort = undefined
-            dispatch({ pagination })
-            return
-        }
-
-        pagination.sort = { desc, selector: param } as ISortType
-        dispatch({ pagination })
-        return
-    }
 
     const simpleSetFilter = (param: string, signal: signalType, type: filterTextType, value?: string | number) => {
         const filt = state.pagination?.filt as IFilter[] | undefined
         const newFilter: IFilter = { param, signal, value, type }
-        let pagination = { ...state.pagination }
 
         // delete all the filters with the same param
         if (filt) {
             let currentFilt = [...filt].filter((filt) => filt.param !== param)
             Boolean(value) && currentFilt.push(newFilter)
 
-            pagination.filt = currentFilt.length > 0 ? currentFilt : undefined
-            dispatch({ pagination })
+            const newFilt = currentFilt.length > 0 ? currentFilt : undefined
+            dispatch({ type: "SET_FILTER", payload: newFilt })
             return
         }
 
-        pagination.filt = [newFilter]
-        Boolean(value) && dispatch({ pagination })
+        Boolean(value) && dispatch({ type: "SET_FILTER", payload: [newFilter] })
         return
     }
 
@@ -81,29 +76,28 @@ export const useHandleGridContext = (currentState: IContextState) => {
         const filt = state.pagination?.filt as IFilter[] | undefined
         const currentParam = newFilters.map((filt) => filt.param)
         const cleanNewFilter = newFilters.filter((filt) => Boolean(filt.value))
-        let pagination = { ...state.pagination }
 
         // delete all the filters with the same param
         if (filt) {
             let currentFilt = [...filt].filter((filt) => !currentParam.includes(filt.param))
             currentFilt = [...currentFilt, ...cleanNewFilter]
 
-            pagination.filt = currentFilt.length > 0 ? currentFilt : undefined
-            dispatch({ pagination })
+            const newFilt = currentFilt.length > 0 ? currentFilt : undefined
+            dispatch({ type: "SET_FILTER", payload: newFilt })
             return
         }
 
-        pagination.filt = cleanNewFilter.length > 0 ? cleanNewFilter : undefined
-        dispatch({ pagination })
+        const newFilt = cleanNewFilter.length > 0 ? cleanNewFilter : undefined
+        dispatch({ type: "SET_FILTER", payload: newFilt })
         return
     }
 
     const changeAsideColumnValue = () => {
-        dispatch({ showAsideColumnHandler: !state.showAsideColumnHandler })
+        dispatch({ type: "SET_ASIDE_COLUMN" })
     }
 
     const setRowToExpand = (rowExpanded: string) => {
-        state.rowExpanded !== rowExpanded ? dispatch({ rowExpanded }) : dispatch({ rowExpanded: undefined })
+        state.rowExpanded !== rowExpanded ? dispatch({ type: "SET_ROW_EXPANDED", payload: rowExpanded }) : dispatch({ type: "SET_ROW_EXPANDED", payload: undefined })
     }
 
     return {

@@ -6,14 +6,14 @@
   border-color: var(--border_color) !important;
 }
 
-:root {
+/* :root {
   --component_bg: white;
   --shadow: 0 1px 4px rgb(0 0 0 / 12%), 0 1px 6px rgb(0 0 0 / 24%);
   --border_shadow_lg: rgba(0, 0, 0, 0.388);
-  --border_shadow_sm: rgba(0, 0, 0, 0.177);
+  --border_shadow_sm: rgba(0, 0, 0, 0.177); */
 
   /*--------------------custome--------------------*/
-  --scroll: rgb(8, 125, 202);
+  /* --scroll: rgb(8, 125, 202);
   --scroll_hover: rgb(7, 99, 160);
 
   --main_color: rgb(0, 136, 255);
@@ -22,9 +22,9 @@
   --stroke_color: rgb(8, 26, 58);
   --stroke_disabled: #b1b1b191;
   --border_color: #C5C5C5;
-}
+} */
 
-  /*-------------------- app config elements --------------------*/
+/*-------------------- app config elements --------------------*/
 
 li {
   list-style: none;
@@ -71,6 +71,7 @@ button {
 }
 
 .modal__overlay {
+  z-index: 2;
   position: fixed;
   top: 0;
   background-color: rgba(0, 0, 0, 0.312);
@@ -91,18 +92,37 @@ button {
   opacity: 0;
 }
 
-.ReactModal__Content {  
-  opacity: 0;
-  top: 0;
-  transition: top .2s linear, opacity .15s linear;
-}
-
 .ReactModal__Content--after-open {
-  opacity: 1;
-  top: 50%;
+  animation: scaleUp .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 }
 
 .ReactModal__Content--before-close {
-  top: 0;
-  opacity: 0;
+  animation: scaleDown 3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+@keyframes scaleUp {
+  0% {
+    top: 0;
+    transform: scale(.8) translate(-50%, 0);
+    opacity: 0;
+  }
+
+  100% {
+    top: 50%;
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    top: 50%;
+    transform:scale(1) translate(-50%, -50%);
+    opacity:1;
+  }
+  100% {
+    top: 0;
+    transform:scale(.8)  translate(-50%, 1000px);
+    opacity:0;
+  }
 }

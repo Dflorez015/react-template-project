@@ -40,7 +40,7 @@ export const RowNestedGridExpanded = ({ children, rowId }: IComponentChildren & 
     return (
         <AnimatePresence>
             {rowExpanded === rowId ? (
-                <motion.tr style={{ overflowY: "hidden", position: "relative", backgroundColor: "var(--stroke_disabled)" }} initial={{ height: 0, opacity: 0 }} exit={{ height: 0, opacity: 0 }} animate={{ height: 250, opacity: 1 }}>
+                <motion.tr style={{ overflowY: "hidden", position: "relative" }} initial={{ height: 0, opacity: 0 }} exit={{ height: 0, opacity: 0 }} animate={{ height: 370, opacity: 1 }}>
                     <td>
                         <div className={styles.nested__grid__wrapper}>
                             {children}
