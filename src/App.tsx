@@ -1,11 +1,10 @@
 import { ITheadGrid } from "@grilla/context"
 import { Grilla } from "@grilla/index"
-import { useGridInfo } from "@grilla/hooks"
 import { NavBarMenu } from "@components/nav"
 import { Fragment, useState } from "react"
 import { CustomeModal } from "@ui/components/modal"
 import { MenuItem } from "@szhsin/react-menu"
-import { TdActionComponent, TdExpandGridButton, RowNestedGridExpanded } from "@ui/components/grilla/utils"
+import { TdActionComponent, TdExpandGridButton, RowNestedGridExpanded, useGridInfo } from "@ui/components/grilla/utils"
 
 
 const ejemplo: ITheadGrid[] = [

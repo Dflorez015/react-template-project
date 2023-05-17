@@ -1,6 +1,7 @@
-import { useContext, useMemo } from "react"
-import { GridContext } from "../context"
+import { useMemo } from "react"
+import { useGridContext } from "../context"
 
+/*----------------------------------------- interfaces -----------------------------------------*/
 const typesParams: { [key: string]: string } = {
     ">": "major",
     ">=": "major",
@@ -10,9 +11,15 @@ const typesParams: { [key: string]: string } = {
 
 type objectIterator = { [key: string]: string | number }
 
-
+/*----------------------------------------- hooks -----------------------------------------*/
+/**
+ * Returns the current status of a field and changes its value in the filter
+ * set the filt configuration of the grid
+ * @param {string} filtParam column param
+ * @returns 
+ */
 export const useGetTextFilterByParam = (filtParam: string) => {
-    const { simpleSetFilter, pagination } = useContext(GridContext)
+    const { simpleSetFilter, pagination } = useGridContext()
 
     const currentValue = useMemo(() => {
         return pagination?.filt?.filter((filt) => filt.param === filtParam)[0]?.value ?? ""
@@ -21,9 +28,14 @@ export const useGetTextFilterByParam = (filtParam: string) => {
     return { currentValue, simpleSetFilter }
 }
 
-
+/**
+ * Returns the current status of a field and changes its value in the filter
+ * set the filt configuration of the grid
+ * @param {string} filtParam column param
+ * @returns 
+ */
 export const useGetIntervalFilterByParam = (filtParam: string) => {
-    const { intervalSetFilter, pagination } = useContext(GridContext)
+    const { intervalSetFilter, pagination } = useGridContext()
 
     const currentValue = useMemo(() => {
         const filtersByParam = pagination?.filt?.filter((filt) => filt.param === filtParam)
@@ -44,19 +56,19 @@ export const useGetIntervalFilterByParam = (filtParam: string) => {
 
 }
 
-
+/**
+ * Returns whether the grid column can perform any action.
+ * @param {string} columnParam 
+ * @returns 
+ */
 export const useIsColumnInAction = (columnParam: string) => {
-
-    const pagination = useContext(GridContext).pagination
-
+    // hooks
+    const pagination = useGridContext().pagination
     const isInAction = useMemo(() => {
-
         let hasAction = false
-
         if (columnParam === "") return hasAction
 
         if (pagination) {
-
             if (pagination.sort) {
                 if (pagination.sort.selector === columnParam) return true
             }

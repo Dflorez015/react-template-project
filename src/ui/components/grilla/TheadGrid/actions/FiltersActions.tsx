@@ -5,7 +5,15 @@ import styles from "@grilla/grid.module.css"
 import { getCurrentDate } from "@services/utility"
 import { IFilter } from "@components/grilla/context"
 
+/*----------------------------------------- interfaces -----------------------------------------*/
 interface IFilterActionsProps { label: string, filter: IFilter }
+
+/*----------------------------------------- components -----------------------------------------*/
+/**
+ * Controller displaying the corresponding filter
+ * @param {IFilterActionsProps} props column filter configuration and name
+ * @returns 
+ */
 export const FiltersActions = (props: IFilterActionsProps) => {
     const { type } = props.filter
 
@@ -21,12 +29,17 @@ export const FiltersActions = (props: IFilterActionsProps) => {
     )
 }
 
-
+/**
+ * Field that allows you to filter by a specific column.
+ * set the filt configuration of the grid
+ * @returns
+ */
 const FilterTextType = ({ filter, label }: IFilterActionsProps) => {
+    // hooks
     const { currentValue, simpleSetFilter } = useGetTextFilterByParam(filter.param)
-
     const { handleInput, loading, removeSearchInput, searchValue } = useHandleTextInputWithTimer(changeFiltValue, currentValue)
 
+    // functions
     function changeFiltValue(value?: string | number) {
         simpleSetFilter!(filter.param, filter.signal, filter.type, value)
     }
@@ -43,9 +56,13 @@ const FilterTextType = ({ filter, label }: IFilterActionsProps) => {
     )
 }
 
-
+/**
+ * Component that allows you to filter by a range of numbers, less than and greater than.
+ * set the filt configuration of the grid
+ * @returns 
+ */
 const FilterNumberType = ({ filter }: IFilterActionsProps) => {
-
+    // hooks
     const { changeFiltValue, sendValue, state } = useHandleIntervalFilter({ ...filter })
 
     return (
@@ -69,11 +86,14 @@ const FilterNumberType = ({ filter }: IFilterActionsProps) => {
     )
 }
 
-
+/**
+ * Component that allows you to filter by a range of date, less than and greater than.
+ * set the filt configuration of the grid
+ * @returns 
+ */
 const FilterDateType = ({ filter }: IFilterActionsProps) => {
-
+    // hooks
     const { changeFiltValue, sendValue, state } = useHandleIntervalFilter({ ...filter })
-
     const currentDate = useMemo(() => getCurrentDate(), [])
 
     return (

@@ -1,10 +1,18 @@
-import { useContext, useMemo } from "react"
-import { GridContext } from "../../context"
+import { useMemo } from "react"
+import { useGridContext } from "../../context"
 import styles from "@grilla/grid.module.css"
 
+/*----------------------------------------- interfaces -----------------------------------------*/
 interface ISortProps { param: string }
+
+/*----------------------------------------- components -----------------------------------------*/
+/**
+ * Action than set the order configuration of the grid
+ * @param {ISortProps} props name column 
+ * @returns 
+ */
 export const SortActions = ({ param }: ISortProps) => {
-    const { sortByParam, pagination } = useContext(GridContext)
+    const { sortByParam, pagination } = useGridContext()
 
     const sortActionsElements = useMemo(() => {
         const sort = pagination?.sort

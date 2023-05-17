@@ -1,13 +1,17 @@
+import { useMemo, useRef } from "react"
 import { AnimatePresence, motion } from "framer-motion";
-import { useContext, useMemo, useRef } from "react"
-import { GridContext, ITheadGrid } from "../context"
+import styles from '../grid.module.css';
 import { useIsColumnInAction } from "../hooks";
 import { FiltersActions, SortActions } from "./actions";
+import { ITheadGrid, useGridContext } from "../context"
 import { gridColumnAnimation } from "./grid.animation";
-import styles from '../grid.module.css';
 
+/**
+ * Component that displays the columns of the grid
+ * @returns 
+ */
 const GridThead = () => {
-    const thead = useContext(GridContext).thead
+    const thead = useGridContext().thead
 
     const lastColumn = useMemo(() => {
         return thead.filter((columns) => !columns.hiddeColumn).at(-1)!
@@ -24,9 +28,14 @@ const GridThead = () => {
     )
 }
 
+/**
+ * Column header component than receive a configuration and displays the name and the actions on it
+ * @param {ITheadGrid, boolean, boolean} props column configuration added into grid
+ * @returns 
+ */
 const ThContent = ({ currentTh, isLastChild, hiddenColumn }: { currentTh: ITheadGrid, isLastChild: boolean, hiddenColumn: boolean }) => {
 
-    const currentFilterColumnOpen = useContext(GridContext).currentFilterColumnOpen
+    const currentFilterColumnOpen = useGridContext().currentFilterColumnOpen
 
     const thAnimation = useMemo(() => {
         if (hiddenColumn) return "hiddenColumn"
@@ -38,9 +47,9 @@ const ThContent = ({ currentTh, isLastChild, hiddenColumn }: { currentTh: IThead
 
     return (
         <motion.th style={currentTh.style} data-action={Boolean(currentTh.isAction)} animate={thAnimation} variants={gridColumnAnimation}>
-            <div className={styles.thead__content} ref={ref}>
+            <div className={styles.thead__content} ref={ref} style={currentTh.thComponent ? { margin: "auto" } : {}}>
 
-                {currentTh.label}
+                {currentTh.label || currentTh.thComponent}
 
                 {!Boolean(currentTh.isAction) && (Boolean(currentTh.filter) || currentTh.canSort) && (
                     <>
@@ -68,9 +77,14 @@ const ThContent = ({ currentTh, isLastChild, hiddenColumn }: { currentTh: IThead
     )
 }
 
+/**
+ * Render the menu action on the grid
+ * @param {string} props column param
+ * @returns 
+ */
 const TheadActionsButton = ({ columnParam }: { columnParam: string }) => {
 
-    const showFilterColumn = useContext(GridContext).showFilterColumn
+    const showFilterColumn = useGridContext().showFilterColumn
     const { isInAction } = useIsColumnInAction(columnParam)
 
     return (

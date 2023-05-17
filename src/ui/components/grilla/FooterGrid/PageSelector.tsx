@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
-import { GridContext } from "../context";
 import { PaginationBackArrow, PaginationNextArrow } from "../utils/Icon";
 import styles from "@grilla/grid.module.css"
+import { useGridContext } from "../context";
 
 const StylePaginate = styled(ReactPaginate)`
 display: flex;
@@ -18,7 +17,7 @@ display: flex;
         text-align: center;
         padding-block: 3px;
         border-radius: 50%;
-        font-family: Roboto, sans-serif;
+        font-family: 'Work Sans',sans-serif;
         transition: background-color , color .4s ease-in-out;
         :hover {
             box-shadow: 2px 3px 6px var(--border_shadow_sm);
@@ -42,7 +41,7 @@ display: flex;
 
 .page__active a{
     background-color: var(--main_color);
-    color: white;
+    color: var(--reverse_stroke_color);
     transition: box-shadow .2s linear;
     :hover {
         background-color: var(--contrary_main_color);
@@ -59,16 +58,13 @@ display: flex;
 }
 `
 
-const pagination = {
-    currentPage: 1,
-    totalPages: 4
-}
-
 export const GridPageSelector = () => {
+    // hooks
+    const changePage = useGridContext().changePage
+    const page = useGridContext().pagination?.page ?? 1
+    const metaDataPagination = useGridContext().metaDataPagination
 
-    const changePage = useContext(GridContext).changePage!
-    const page = useContext(GridContext).pagination?.page ?? 1
-
+    // functions
     const handlePageClick = ({ selected }: { selected: number }) => {
         changePage(selected + 1)
     }
@@ -76,7 +72,7 @@ export const GridPageSelector = () => {
     return (
         <div>
             <div className={styles.pagination__legend}>
-                Página {page} de {pagination.totalPages}
+                Página {page} de {metaDataPagination?.totalPages ?? 1}
             </div>
 
             <StylePaginate
@@ -85,7 +81,7 @@ export const GridPageSelector = () => {
                 previousLabel={<PaginationBackArrow />}
                 onPageChange={handlePageClick}
                 forcePage={+page - 1}
-                pageCount={pagination.totalPages}
+                pageCount={metaDataPagination?.totalPages ?? 1}
                 pageRangeDisplayed={1}
                 marginPagesDisplayed={1}
                 activeClassName="page__active"

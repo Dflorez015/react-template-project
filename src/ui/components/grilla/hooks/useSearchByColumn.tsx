@@ -1,10 +1,16 @@
-import { useContext, useEffect, useMemo } from "react"
-import { GridContext, IFilter } from "../context"
+import { useEffect, useMemo } from "react"
+import { IFilter, useGridContext } from "../context"
 
+/**
+ * Returns the status of the main search field and controls which fields can be filtered on
+ * set the filt configuration of the grid
+ * @returns 
+ */
 export const useSearchInput = () => {
-    const thead = useContext(GridContext).thead
-    const pagination = useContext(GridContext).pagination
-    const intervalSetFilter = useContext(GridContext).intervalSetFilter
+    // hooks
+    const thead = useGridContext().thead
+    const pagination = useGridContext().pagination
+    const intervalSetFilter = useGridContext().intervalSetFilter
 
     useRefreshFilterSearch()
 
@@ -21,6 +27,7 @@ export const useSearchInput = () => {
         return pagination?.filt?.filter((filt) => filt.param === filtParam)[0]?.value ?? ""
     }, [pagination?.filt, columnsWithSearch])
 
+    //functions
     function handleSearchInput(value?: string) {
         let currentFilters: IFilter[] = []
 
@@ -31,20 +38,16 @@ export const useSearchInput = () => {
         currentFilters.length > 0 && intervalSetFilter!(currentFilters)
     }
 
-    return {
-        placheHolderInput,
-        currentValue,
-        handleSearchInput
-    }
+    return { placheHolderInput, currentValue, handleSearchInput }
 }
 
 /**
- * refresh search filter when show a column with @type {isSearch?: boolean}
+ * Refresh search filter when show a column with @type {isSearch?: boolean}
  */
 const useRefreshFilterSearch = () => {
-    const intervalSetFilter = useContext(GridContext).intervalSetFilter
-    const thead = useContext(GridContext).thead
-    const filt = useContext(GridContext).pagination?.filt
+    const intervalSetFilter = useGridContext().intervalSetFilter
+    const thead = useGridContext().thead
+    const filt = useGridContext().pagination?.filt
 
     useEffect(() => {
         const searchFilt = filt?.filter((filter) => filter.groupSignal === 'or')

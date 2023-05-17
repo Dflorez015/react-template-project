@@ -1,6 +1,15 @@
 import { useState } from "react"
 
+/*----------------------------------------- interfaces -----------------------------------------*/
 export type HandleInput = React.ChangeEvent<HTMLInputElement>
+
+/*----------------------------------------- hooks -----------------------------------------*/
+/**
+ * Hook controlling a value by means of a timeout
+ * @param {Function} handle function that is triggered when the timer runs out
+ * @param queryValue initial value for the value
+ * @returns 
+ */
 export const useHandleTextInputWithTimer = (handle: (value?: string) => void, queryValue?: string | number) => {
     // hooks
     const [loading, setLoading] = useState(false)
@@ -16,7 +25,7 @@ export const useHandleTextInputWithTimer = (handle: (value?: string) => void, qu
             (value !== queryValue || !value) && handle(value)
             setLoading(false)
         }, 1000)
-        setTimerId(newTimerId)
+        setTimerId(Number(newTimerId))
         setLoading(true)
     }
 

@@ -3,8 +3,14 @@ import { ArrowRightDirection, ColumnsIcon } from "../utils/Icon"
 import styles from "@grilla/grid.module.css"
 import { GridContext } from "../context"
 
+/*----------------------------------------- interfaces -----------------------------------------*/
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>
 
+/*----------------------------------------- hooks -----------------------------------------*/
+/**
+ * Side menu controller that handles the status of grid columns
+ * @returns 
+ */
 export const useHandleShowColumn = () => {
     const { changeAsideColumnValue, setTheadHiddenValue, showAsideColumnHandler, thead } = useContext(GridContext)
 

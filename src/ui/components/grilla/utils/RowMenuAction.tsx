@@ -1,30 +1,43 @@
-import { useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MenuRowGrid, MenuActionRow } from "@ui/components/styled";
+import { ICustomeMenuSzh, MenuList } from "@components/styled/MenuStyled";
+import { MenuActionRow } from "./styled.components";
 import { ExpandGridRow, RowActionSvg } from "./Icon";
-import { GridContext } from "../context";
 import styles from "@grilla/grid.module.css"
+import { useGridContext } from "../context";
 
 interface IComponentChildren { children: JSX.Element }
 interface IComponentId { rowId: string }
 
-export const TdActionComponent = ({ children }: IComponentChildren) => {
+/**
+ * Button menu action on row grid
+ * @param {JSX.Element, ...config} props pass a fragment component with <MenuItem/> tags, and, optionally the button config
+ * @returns 
+ */
+export const TdActionComponent = ({ children, viewScroll = "auto", position = "auto", direction = "bottom", align = "start" }: IComponentChildren & ICustomeMenuSzh) => {
 
     return (
         <td style={{ textAlign: "center" }}>
-            <MenuRowGrid menuButton={({ open }) => <MenuActionRow $isOpen={open}><RowActionSvg /></MenuActionRow>}>
+            <MenuList viewScroll={viewScroll} position={position} align={align} direction={direction}
+                offsetX={(direction === 'left' || direction === 'right') ? 8 : 0}
+                offsetY={(direction === 'top' || direction === 'bottom') ? 8 : 0}
+                menuButton={({ open }) => <MenuActionRow $isOpen={open}><RowActionSvg /></MenuActionRow>}>
                 <>
                     {children}
                 </>
-            </MenuRowGrid>
+            </MenuList>
         </td>
     )
 }
 
+/**
+ * Button expand row action
+ * @param {string} rowId ID of the row (is the id param from the list) 
+ * @returns 
+ */
 export const TdExpandGridButton = ({ rowId }: IComponentId) => {
-
-    const rowExpanded = useContext(GridContext).rowExpanded
-    const setRowToExpand = useContext(GridContext).setRowToExpand!
+    // hooks
+    const rowExpanded = useGridContext().rowExpanded
+    const setRowToExpand = useGridContext().setRowToExpand!
 
     return (
         <td style={{ textAlign: "center" }}>
@@ -33,9 +46,14 @@ export const TdExpandGridButton = ({ rowId }: IComponentId) => {
     )
 }
 
+/**
+ * Nested grid on row
+ * @param {JSX.Element, string} props  pass a tbody with the {useGridInfo} hook, and, rowId is the identification of the row to be selected
+ * @returns 
+ */
 export const RowNestedGridExpanded = ({ children, rowId }: IComponentChildren & IComponentId) => {
-
-    const rowExpanded = useContext(GridContext).rowExpanded
+    // hooks
+    const rowExpanded = useGridContext().rowExpanded
 
     return (
         <AnimatePresence>
@@ -50,4 +68,33 @@ export const RowNestedGridExpanded = ({ children, rowId }: IComponentChildren & 
             ) : null}
         </AnimatePresence>
     )
+}
+
+/**
+ * Auxiliary component that displays items using the Thead config 
+ * @param {any} data info data object - can be used on the rows of the grid
+ * @returns 
+ */
+export const TrGridAuxColumn = ({ data }: { data: any }) => {
+    const thead = useGridContext().thead.filter((filt) => filt.param !== "")
+
+    return (
+        <>
+            {thead.map(({ param, gridfieldValue }, index) => (
+                <td key={index}>
+                    {{ "amount": formatAmountCo(data[param]), "": data[param] ?? "-" }[gridfieldValue ?? ""]}
+                </td>
+            ))}
+        </>
+    )
+}
+
+/**
+ * Transform a value into COL format money
+ * @param {string} value amount value
+ * @returns 
+ */
+function formatAmountCo(value: string) {
+    if (!value) return "$ -"
+    return "$ " + Intl.NumberFormat("es-CO").format(+value)
 }

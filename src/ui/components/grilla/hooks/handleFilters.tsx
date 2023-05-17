@@ -2,12 +2,21 @@ import { useState } from "react"
 import { IFilter } from "../context"
 import { useGetIntervalFilterByParam } from "./usePaginationSelector"
 
+/*----------------------------------------- interfaces -----------------------------------------*/
 export type SubmitForm = React.FormEvent<HTMLFormElement>
-export const useHandleIntervalFilter = (filter: IFilter) => {
 
+/*----------------------------------------- hooks -----------------------------------------*/
+/**
+ * Hook that controls the forms that allow filtering by a range of values
+ * @param {IFilter} filter column config filter
+ * @returns 
+ */
+export const useHandleIntervalFilter = (filter: IFilter) => {
+    // hooks
     const { currentValue, intervalSetFilter } = useGetIntervalFilterByParam(filter.param)
     const [state, setState] = useState<{ [key: string]: string }>({ major: `${currentValue.major ?? ""}`, minor: `${currentValue.minor ?? ""}` })
 
+    // functions
     const changeFiltValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, id } = e.target
         setState({ ...state, [id]: value })

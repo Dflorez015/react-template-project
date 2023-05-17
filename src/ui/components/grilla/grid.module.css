@@ -28,7 +28,7 @@
     /*--- custome ---*/
     border-radius: 11px;
     box-shadow: var(--shadow);
-    overflow: auto;    
+    overflow: auto;
     background-color: var(--component_bg);
 }
 
@@ -66,7 +66,8 @@
     border-bottom: 1px solid;
 
     /*--- custome ---*/
-    background-color: var(--component_bg);
+    /* background-color: var(--component_bg); */
+    background-color: var(--opacity_main_color);
     border-color: var(--border_shadow_lg);
 }
 
@@ -74,7 +75,7 @@
     position: relative;
     animation: appear 1.5s ease;
     white-space: nowrap;
-    padding: 1rem 1.2rem;
+    padding: 1.6rem 1.2rem;
 }
 
 .grid__style th[data-action="true"] {
@@ -91,12 +92,26 @@
     /* transform: translateX(-34%, 22px) !important; */
 }
 
+.grid__style tbody {
+    position: relative;
+}
+
 .grid__style tbody tr {
     height: 40px;
     border-bottom: 1px solid;
 
     /*--- custome ---*/
     border-color: var(--border_shadow_sm);
+}
+
+.grid__style tbody tr td {
+    padding-block: 15px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: clamp(14px, 2vw, 18px);
+}
+
+.grid__style tbody tr td[data-center="true"] {
+    text-align: center;
 }
 
 .grid__style tbody tr:last-child {
@@ -168,13 +183,17 @@
 }
 
 .thead__content {
+    font-family: 'Work Sans', sans-serif;
     width: fit-content;
     white-space: nowrap;
-    font-size: clamp(12px, 2vw, 16px);
+    font-size: clamp(14px, 2vw, 16px);
     display: flex;
     text-align: left;
     position: relative;
     gap: 0.5rem;
+
+    /*--- custome ---*/
+    color: var(--contrary_main_color);
 }
 
 /* Actions css ----------------------------------------------------------------*/
@@ -502,5 +521,5 @@
 }
 
 .pagination__legend {
-    font-family: Roboto, sans-serif;
+    font-family: 'Work Sans', sans-serif;
 }

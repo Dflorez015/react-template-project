@@ -1,9 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { MenuList } from "@components/styled"
+import { MenuList } from "@components/styled/MenuStyled"
 import styles from "@grilla/grid.module.css"
 import { useHandleTextInputWithTimer, useSearchInput, useHandleShowColumn } from "@grilla/hooks"
 import { LoadingIcon, DeleteFilterText, ColumnsIcon, OptionsIcon } from "@grilla/utils/Icon"
 
+/**
+ * Field that allows a multi-column search
+ * set the filt configuration of the grid
+ * @returns 
+ */
 export const QuickSearchGrid = () => {
     const { placheHolderInput, currentValue, handleSearchInput } = useSearchInput()
 
@@ -24,6 +29,11 @@ export const QuickSearchGrid = () => {
     )
 }
 
+/**
+ * Displays the menu of columns to hide or show them.
+ * set the columns configuration of the grid
+ * @returns 
+ */
 export const HandleColumnsVisibility = () => {
     const { button, showAsideColumnHandler, arrow, thead, changeInput } = useHandleShowColumn()
 
@@ -66,6 +76,11 @@ export const HandleColumnsVisibility = () => {
     )
 }
 
+/**
+ * Displays the list actions passed to the grid
+ * @param {JSX.Element} children The optional list
+ * @returns 
+ */
 export const TopListActions = ({ children }: { children?: React.ReactNode }) => {
     return (
         <MenuList menuButton={<button className={styles.top__button__action}><OptionsIcon />Opciones</button>}>

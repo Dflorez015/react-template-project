@@ -1,8 +1,13 @@
 import { useReducer } from "react"
-import { filterTextType, IContextState, IFilter, IGridContext, ISortType, ITheadGrid, signalType } from "./gridContext"
+import { filterTextType, IContextState, IFilter, IGridContext, IGridFunction, IMetaDataPagination, ISortType, ITheadGrid, signalType } from "./gridContext"
 import UseGridReducer from "./useReducer"
 
-export const useHandleGridContext = (currentState: IContextState) => {
+// interface ---------------------------------------------------------------------------
+
+type IUseGridHandler = (currentState: IContextState) => { state: IGridContext } & IGridFunction
+
+// handler grid ---------------------------------------------------------------------------
+export const useHandleGridContext: IUseGridHandler = (currentState) => {
     const initialState: IGridContext = { pagination: { page: "1", limit: "20" }, ...currentState }
 
     const [state, dispatch] = useReducer(UseGridReducer, initialState)
@@ -13,6 +18,10 @@ export const useHandleGridContext = (currentState: IContextState) => {
 
     const changeLimit = (num: number) => {
         dispatch({ type: "CHANGE_LIMIT", payload: `${num}` })
+    }
+
+    const setCurrentMetadaPagination = (meta: IMetaDataPagination) => {
+        dispatch({ type: "SET_META_DATA", payload: meta })
     }
 
     const showFilterColumn = (columnParam: string) => {
@@ -101,7 +110,7 @@ export const useHandleGridContext = (currentState: IContextState) => {
     }
 
     return {
-        state, changePage, changeLimit, showFilterColumn, sortByParam, setRowToExpand,
+        state, changePage, changeLimit, showFilterColumn, sortByParam, setRowToExpand, setCurrentMetadaPagination,
         simpleSetFilter, changeAsideColumnValue, intervalSetFilter, setTheadHiddenValue
     }
 }

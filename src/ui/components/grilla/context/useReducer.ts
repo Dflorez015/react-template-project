@@ -9,13 +9,14 @@ const SET_FILTER = "SET_FILTER";
 const SET_ASIDE_COLUMN = "SET_ASIDE_COLUMN";
 const SET_THEAD = "SET_THEAD";
 const SET_ROW_EXPANDED = "SET_ROW_EXPANDED";
+const SET_META_DATA = "SET_META_DATA";
 
 export default (state: IGridContext, action: { payload?: any, type: string }) => {
     const { payload, type } = action;
 
     switch (type) {
         case CHANGE_PAGE:
-            return produce(state, (draft) => {
+            return produce(state, (draft) => {                
                 draft.pagination!.page = payload
             })
         case CHANGE_LIMIT:
@@ -45,6 +46,10 @@ export default (state: IGridContext, action: { payload?: any, type: string }) =>
         case SET_ROW_EXPANDED:
             return produce(state, (draft) => {
                 draft.rowExpanded = payload
+            })
+        case SET_META_DATA:
+            return produce(state, (draft) => {
+                draft.metaDataPagination = payload
             })
 
         default:

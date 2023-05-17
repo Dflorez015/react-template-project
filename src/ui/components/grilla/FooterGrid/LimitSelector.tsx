@@ -1,11 +1,11 @@
-import { useContext } from "react"
 import styled from "styled-components"
-import { GridContext } from "../context"
+import { useGridContext } from "../context"
+import { useMemo } from "react"
 
 
 const LimitWrapper = styled.div<{ $active: boolean }>`
 cursor: pointer;
-font-family: Roboto, sans-serif;
+font-family: 'Work Sans',sans-serif;
 padding: 5px;
 text-align: center;
 border-radius: 20px;
@@ -27,13 +27,18 @@ ${({ $active }) => $active ? `
 const limits = [20, 50, 100, 200]
 
 export const LimitSelector = () => {
+    // hooks
+    const changeLimit = useGridContext().changeLimit
+    const gridLimit = useGridContext().pagination?.limit ?? 20
+    const metaLimit = useGridContext().metaDataPagination?.itemsPerPage ?? 20
 
-    const changeLimit = useContext(GridContext).changeLimit!
-    const gridLimit = useContext(GridContext).pagination?.limit ?? 20
+    const currentLimits = useMemo(() => {
+        return limits.filter((num) => num <= metaLimit)
+    }, [metaLimit])
 
     return (
         <div>
-            {limits.map(limit => (
+            {currentLimits.map(limit => (
                 <LimitWrapper key={limit} $active={limit == gridLimit} onClick={() => changeLimit(limit)}>
                     {limit}
                 </LimitWrapper>
