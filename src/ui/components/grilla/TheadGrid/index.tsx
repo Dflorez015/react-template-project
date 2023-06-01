@@ -51,7 +51,7 @@ const ThContent = ({ currentTh, isLastChild, hiddenColumn }: { currentTh: IThead
 
                 {currentTh.label || currentTh.thComponent}
 
-                {!Boolean(currentTh.isAction) && (Boolean(currentTh.filter) || currentTh.canSort) && (
+                {!(currentTh.isAction) && (Boolean(currentTh.filter) || currentTh.canSort) && (
                     <>
                         <TheadActionsButton columnParam={currentTh.param} />
 
@@ -63,7 +63,7 @@ const ThContent = ({ currentTh, isLastChild, hiddenColumn }: { currentTh: IThead
                                     exit={{ opacity: 0, y: 15, x: (isLastChild ? "-34%" : 0) }}
                                     animate={{ opacity: 1, y: 22, x: (isLastChild ? "-34%" : 0) }}>
                                     <>
-                                        {Boolean(currentTh.canSort) ? <SortActions param={currentTh.param} /> : null}
+                                        {(currentTh.canSort) ? <SortActions param={currentTh.param} /> : null}
                                         {currentTh.filter ? <FiltersActions label={currentTh.label} filter={currentTh.filter} /> : null}
                                     </>
                                 </motion.div>

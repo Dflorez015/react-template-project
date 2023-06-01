@@ -19,17 +19,23 @@ export const SortActions = ({ param }: ISortProps) => {
         let ascState, descState
 
         if (sort && sort.selector === param) {
-            sort.desc ? (ascState = false, descState = true) : (ascState = true, descState = false)
+            if (sort.desc) {
+                ascState = false
+                descState = true
+            } else {
+                ascState = true
+                descState = false
+            }
         }
 
         return (
             <div className={styles.actions__wrapper} style={{ gap: "10px" }}>
                 <label>Ordenar información</label>
                 <div className={styles.actions__wrapper}>
-                    <div className={styles.row__actions__wrapper} data-active={ascState} onClick={() => sortByParam!(param, false)}>
+                    <div className={styles.row__actions__wrapper} data-active={ascState} onClick={() => sortByParam(param, false)}>
                         <AscIcon /> Orden ascendente
                     </div>
-                    <div className={styles.row__actions__wrapper} data-active={descState} onClick={() => sortByParam!(param, true)}>
+                    <div className={styles.row__actions__wrapper} data-active={descState} onClick={() => sortByParam(param, true)}>
                         <DescIcon /> Orden descendente
                     </div>
                 </div>

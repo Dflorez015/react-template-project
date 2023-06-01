@@ -1,18 +1,6 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-// export const MenuRowGrid = styled(MenuInner).attrs(() => ({
-//     transition: true,
-//     direction: "right"
-// }))`
-//     ${"name"} {
-//         padding-block: 5px;
-//         padding-inline: 8px;
-//         margin-left: 5px !important;
-//         box-shadow: var(--shadow);
-//     }
-// `;
-
 export const MenuActionRow = styled(motion.button).attrs(() => ({
     type: "button",
 })) <{ $isOpen: boolean }>`

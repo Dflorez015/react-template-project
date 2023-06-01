@@ -64,13 +64,14 @@ const filterAdapter = (filt: IFilter[] | undefined) => {
  * @returns 
  */
 const sortAdapter = (sort: ISortType | undefined) => {
-    if (sort) return `[${sort}]`
+    if (sort) return `[{"selector": "${sort.selector}", "desc": ${sort.desc}}]`
     return ""
 }
 
 /**
  * Hook that returns the pagination that has a grid that encompasses it
  * @returns {string, string} query params (page, limit, filt, etc...) manupulated on the grid
+ * @example <Grilla...> {useGridInfo} <Grilla/>
  */
 export const useGridInfo = () => {
     const { pagination, thead, url, setCurrentMetadaPagination } = useGridContext()
@@ -111,6 +112,7 @@ export const useGridInfo = () => {
  * Note: this pagination is used for Graphql APIS
  * Hook that returns the pagination that has a grid that encompasses it
  * @returns {string, string} query params (page, limit, filt, etc...) manupulated on the grid
+ * @example <Grilla...> {useGridInfoGraphql} <Grilla/>
  */
 export const useGridInfoGraphql = () => {
     const { pagination, thead, setCurrentMetadaPagination } = useGridContext()

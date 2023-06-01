@@ -30,7 +30,7 @@ export const useHandleIntervalFilter = (filter: IFilter) => {
             currentFilters.push(adaptFilterByInput(key, state[key]))
         }
 
-        intervalSetFilter!(currentFilters)
+        intervalSetFilter(currentFilters)
     }
 
     const adaptFilterByInput = (stateParam: string, value: string | number) => {

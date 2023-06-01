@@ -4,7 +4,6 @@ import { createContext, CSSProperties, useContext } from "react";
 
 export type signalType = "=" | "contains" | "equal" | "<" | ">" | "<>" | ">=" | "<="
 export type filterTextType = "text" | "number" | "date" | "boolean"
-export type labelType = "checkbox"
 export type fielValueType = "amount"
 
 export interface IFilter {
@@ -40,6 +39,7 @@ export interface IGrid extends IContextState {
     withoutTopActions?: boolean
     withoutBottomActions?: boolean
     gridOptions?: JSX.Element
+    defaultPagination?: IPagination
 }
 
 // context function  ----------------------------------------------------------------
@@ -65,7 +65,7 @@ export interface ISortType {
     [key: string]: boolean | string
 }
 
-export interface Ipagination {
+export interface IPagination {
     limit?: string
     page?: string
     route?: string
@@ -96,7 +96,7 @@ export interface IMetaDataPagination {
 
 export interface IGridContext extends IContextState, Partial<IGridFunction> {
     paramActionsActive?: string
-    pagination?: Ipagination
+    pagination?: IPagination
     currentFilterColumnOpen?: string
     showAsideColumnHandler?: boolean
     rowExpanded?: string

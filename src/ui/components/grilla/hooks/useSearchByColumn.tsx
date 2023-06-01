@@ -35,7 +35,7 @@ export const useSearchInput = () => {
             currentFilters.push({ param: column.param, value, signal: "contains", type: "text", groupSignal: "or" })
         }
 
-        currentFilters.length > 0 && intervalSetFilter!(currentFilters)
+        currentFilters.length > 0 && intervalSetFilter(currentFilters)
     }
 
     return { placheHolderInput, currentValue, handleSearchInput }
@@ -61,7 +61,7 @@ const useRefreshFilterSearch = () => {
                 currentFilters.push({ param: column.param, value: currentSearchValue, signal: "contains", type: "text", groupSignal: "or" })
             }
 
-            intervalSetFilter!(currentFilters)
+            intervalSetFilter(currentFilters)
         }
     }, [thead])
 }

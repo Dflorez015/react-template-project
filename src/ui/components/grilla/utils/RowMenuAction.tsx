@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import dayjs from "dayjs";
 import { ICustomeMenuSzh, MenuList } from "@components/styled/MenuStyled";
 import { MenuActionRow } from "./styled.components";
 import { ExpandGridRow, RowActionSvg } from "./Icon";
@@ -14,13 +16,15 @@ interface IComponentId { rowId: string }
  * @returns 
  */
 export const TdActionComponent = ({ children, viewScroll = "auto", position = "auto", direction = "bottom", align = "start" }: IComponentChildren & ICustomeMenuSzh) => {
+    // hooks
+    const MenuButton = (open: boolean) => useMemo(() => (<MenuActionRow $isOpen={open}><RowActionSvg /></MenuActionRow>), [open])
 
     return (
         <td style={{ textAlign: "center" }}>
             <MenuList viewScroll={viewScroll} position={position} align={align} direction={direction}
                 offsetX={(direction === 'left' || direction === 'right') ? 8 : 0}
                 offsetY={(direction === 'top' || direction === 'bottom') ? 8 : 0}
-                menuButton={({ open }) => <MenuActionRow $isOpen={open}><RowActionSvg /></MenuActionRow>}>
+                menuButton={({ open }) => MenuButton(open)}>
                 <>
                     {children}
                 </>
@@ -37,7 +41,7 @@ export const TdActionComponent = ({ children, viewScroll = "auto", position = "a
 export const TdExpandGridButton = ({ rowId }: IComponentId) => {
     // hooks
     const rowExpanded = useGridContext().rowExpanded
-    const setRowToExpand = useGridContext().setRowToExpand!
+    const setRowToExpand = useGridContext().setRowToExpand
 
     return (
         <td style={{ textAlign: "center" }}>
@@ -97,4 +101,14 @@ export const TrGridAuxColumn = ({ data }: { data: any }) => {
 function formatAmountCo(value: string) {
     if (!value) return "$ -"
     return "$ " + Intl.NumberFormat("es-CO").format(+value)
+}
+
+/**
+ * Transform a value into input date format
+ * @param value 
+ * @returns 
+ */
+function formatToDate(value: string) {
+    if (!value) return "----"
+    return dayjs(value).format("DD/MM/YYYY")
 }
