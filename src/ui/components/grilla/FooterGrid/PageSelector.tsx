@@ -80,8 +80,8 @@ export const GridPageSelector = () => {
                 nextLabel={<PaginationNextArrow />}
                 previousLabel={<PaginationBackArrow />}
                 onPageChange={handlePageClick}
-                forcePage={+page - 1}
-                pageCount={metaDataPagination?.totalPages ?? 1}
+                forcePage={(metaDataPagination?.currentPage || 1) - 1}
+                pageCount={metaDataPagination?.totalPages || 1}
                 pageRangeDisplayed={1}
                 marginPagesDisplayed={1}
                 activeClassName="page__active"

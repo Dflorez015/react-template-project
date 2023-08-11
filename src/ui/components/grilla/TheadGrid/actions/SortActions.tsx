@@ -15,11 +15,12 @@ export const SortActions = ({ param }: ISortProps) => {
     const { sortByParam, pagination } = useGridContext()
 
     const sortActionsElements = useMemo(() => {
-        const sort = pagination?.sort
         let ascState, descState
+        const sort = pagination?.sort
+        const hasSorting = sort?.find((item) => item.selector === param )
 
-        if (sort && sort.selector === param) {
-            if (sort.desc) {
+        if (sort && hasSorting) {
+            if (hasSorting.desc) {
                 ascState = false
                 descState = true
             } else {

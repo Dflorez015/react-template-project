@@ -63,10 +63,14 @@ const filterAdapter = (filt: IFilter[] | undefined) => {
  * @param sort 
  * @returns 
  */
-const sortAdapter = (sort: ISortType | undefined) => {
-    if (sort) return `[{"selector": "${sort.selector}", "desc": ${sort.desc}}]`
+const sortAdapter = (sort: ISortType[] | undefined) => {
+    if (sort && sort.length > 0) {
+        const sortParams = sort.map((item)=> `{"selector": "${item.selector}", "desc": ${item.desc}}`)
+        return `[${sortParams}]`
+    }
     return ""
 }
+
 
 /**
  * Hook that returns the pagination that has a grid that encompasses it

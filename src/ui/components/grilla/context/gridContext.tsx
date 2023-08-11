@@ -71,8 +71,8 @@ export interface IPagination {
     route?: string
     filt?: IFilter[]
     group?: string
-    sort?: ISortType
-    [key: string]: string | undefined | ISortType | IFilter[]
+    sort?: ISortType[]
+    [key: string]: string | undefined | ISortType[] | IFilter[]
 }
 
 export interface IPaginationFilterDto {

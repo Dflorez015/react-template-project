@@ -38,6 +38,7 @@ export default (state: IGridContext, action: { payload?: any, type: string }) =>
         case SET_FILTER:
             return produce(state, (draft) => {
                 draft.pagination!.filt = payload
+                draft.pagination!.page = "1"
             })
         case SET_ASIDE_COLUMN:
             return produce(state, (draft) => {

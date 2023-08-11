@@ -70,7 +70,7 @@ export const useIsColumnInAction = (columnParam: string) => {
 
         if (pagination) {
             if (pagination.sort) {
-                if (pagination.sort.selector === columnParam) return true
+                if (pagination.sort.some((item) => item.selector === columnParam)) return true
             }
 
             if (pagination.filt) {

@@ -39,15 +39,24 @@ export const useHandleGridContext: IUseGridHandler = (currentState) => {
 
     const sortByParam = (param: string, desc: boolean) => {
         const sort = state.pagination?.sort
+        const currentIndex = sort?.findIndex(item => item.selector === param)
 
         // delete sort value if the column has been filtered
-        if ((sort) && (sort.selector === param) && (sort.desc === desc)) {
-            dispatch({ type: "SET_SORT", payload: undefined })
+        if (sort && currentIndex !== undefined && currentIndex >= 0) {
+            let newSort = [...sort]
+
+            if (newSort[currentIndex].desc === desc) {
+                newSort.splice(currentIndex, 1)
+            } else {
+                newSort[currentIndex] = { selector: param, desc: desc }
+            }
+
+            dispatch({ type: "SET_SORT", payload: newSort.length > 0 ? newSort : undefined })
             return
         }
 
         const newSort = { desc, selector: param } as ISortType
-        dispatch({ type: "SET_SORT", payload: newSort })
+        dispatch({ type: "SET_SORT", payload: [...sort ?? [], newSort] })
     }
 
     const setTheadHiddenValue = (column: ITheadGrid, value: boolean) => {
